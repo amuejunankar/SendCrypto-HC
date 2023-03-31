@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="../styles/login.css">
+  <link rel="stylesheet" href="../styles/navbar.css">
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="navbar">
+      <div class="logo">
+        <a href="../index.html">Send Crypto</a>
+      </div>
+      <ul class="navLinks">
+        <li>
+          <a href="../index.html">Home</a>
+        </li>
+        <li>
+          <a href="">Send</a>
+        </li>
+        <li>
+          <a href="">Receive</a>
+        </li>
+        <li>
+          <a href="">My Account</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="registration-page">
+    <form onsubmit="return validateForm()" id="signupForm">
+      <h2>Create an account</h2>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input placeholder="Enter your email" type="email" id="email" name="email" value="" required />
+      </div>
+      <div class="form-field">
+        <label for="mobileCode">Mobile Number</label>
+        <div>
+          <select id="mobileCode" name="mobileCode" value="" required>
+            <option value="+91">INDIA (+91)</option>
+            <option value="+1">USA (+1)</option>
+            <option value="+81">JAPAN (+81)</option>
+            <option value="+86">CHINA (+86)</option>
+          </select>
+          <input placeholder="Enter a Mobile Number" type="tel" id="mobileNumber" name="mobileNumber" value="" required
+            maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input placeholder="Enter a Password" type="password" id="password" name="password" value="" required
+          maxLength={100} />
+      </div>
+      <div class="form-field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input placeholder="Confirm Password" type="password" id="confirmPassword" name="confirmPassword" value=""
+          required maxLength={100} />
+        <span id="passwordError"></span>
+      </div>
+
+      <button type="submit">Sign Up</button>
+      <a href="/login">
+        <button class="button" type="button">
+          Login
+        </button>
+      </a>
+    </form>
+  </div>
+
+
+
+</body>
+
+</html>

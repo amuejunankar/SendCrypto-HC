@@ -1,0 +1,50 @@
+#body {
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4f6bff;
+    font-family: sans-serif; ;  
+  }
+  
+  .landing-page-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .landing-page-description {
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: sans-serif; ;
+  }
+  
+  .landing-page-button {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #323232;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-family: sans-serif; /* Use Poppins font */
+  }
+  
+  .landing-page-button:hover {
+    background-color: #555;
+    transition: 0.3s;
+  }
+  
