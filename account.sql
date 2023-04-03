@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2023 at 11:04 AM
+-- Generation Time: Apr 03, 2023 at 05:32 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -32,10 +32,22 @@ CREATE TABLE `accounttable` (
   `name` text NOT NULL,
   `email` text NOT NULL,
   `mobilecode` int(10) NOT NULL,
-  `mobilenumber` int(12) NOT NULL,
+  `mobilenumber` varchar(12) NOT NULL,
   `password` text NOT NULL,
-  `profilephoto` blob NOT NULL
+  `profilephoto` blob NOT NULL,
+  `is_verified` int(10) DEFAULT 0,
+  `token` varchar(100) DEFAULT NULL,
+  `otp` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `accounttable`
+--
+
+INSERT INTO `accounttable` (`id`, `name`, `email`, `mobilecode`, `mobilenumber`, `password`, `profilephoto`, `is_verified`, `token`, `otp`) VALUES
+(37, 'Amit', 'cibaba@lyft.live', 91, '8668635805', 'asdefrftg', '', 1, '0', '0'),
+(38, 'new 12', 'javocata@tutuapp.bid', 91, '4684464684', '748596', '', 1, '0', '0'),
+(39, 'test2', '5jc29qaph19@qiott.com', 91, '7875733150', 'finally', '', 1, '0', '0');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +67,7 @@ ALTER TABLE `accounttable`
 -- AUTO_INCREMENT for table `accounttable`
 --
 ALTER TABLE `accounttable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

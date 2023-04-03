@@ -1,8 +1,9 @@
 <?php
+header("Cache-Control: no cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 // connect DB
 include './connection.php';
 $conn = connect();
-
 
 if (isset($_GET['email'])) {
     $email = $_GET['email'];
@@ -11,6 +12,10 @@ if (isset($_GET['email'])) {
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
+
+    $token = bin2hex(random_bytes(10)); // generate a unique token
+    $sql2 = "UPDATE accounttable SET token = '$token' WHERE email = '$email'";
+    mysqli_query($conn, $sql2);
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -23,19 +28,16 @@ if (isset($_GET['email'])) {
             $update_query = "UPDATE accounttable SET is_verified = 1 WHERE email = ?";
             $stmt = mysqli_prepare($conn, $update_query);
             mysqli_stmt_bind_param($stmt, "s", $email);
-            
+
             if (mysqli_stmt_execute($stmt)) {
                 // Update successful
                 $sql = "UPDATE accounttable SET otp = 0 WHERE email = '$email'";
-                mysqli_query($conn, $sql);             
-                echo "<script>alert('Account verified successfully'); 
-                window.location='../html/login.html';
-                </script>";
+                mysqli_query($conn, $sql);
+                header("Location: ../database/verifyconfirmpass.php?email=$email&token=$token");
             } else {
                 // Error occurred while updating
                 echo "<script>alert('Error updating database: " . mysqli_error($conn) . "');</script>";
             }
-            
         } else {
             // OTP did not match, show error message
             echo "OTP did not match";
