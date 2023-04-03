@@ -1,17 +1,6 @@
 <?php
-// Replace database credentials with your own
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include './connection.php';
+$conn = connect();
 
 // Retrieve form data
 $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -21,7 +10,7 @@ $password = mysqli_real_escape_string($conn, $_POST['password']);
 $query = "SELECT * FROM accounttable WHERE email = '$email' AND password = '$password'";
 $result = mysqli_query($conn, $query);
 
-if(mysqli_num_rows($result) > 0) {
+if (mysqli_num_rows($result) > 0) {
     // Email and password match, proceed to dashboard
     header("Location: ../html/send.html");
 } else {
