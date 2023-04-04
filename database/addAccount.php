@@ -1,6 +1,8 @@
 <?php
 
 require_once './OTP/generate_otp.php';
+require_once './sendSMS/sendOTP.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -41,7 +43,6 @@ function sendMail($email, $otp)
 }
 
 
-
 // Replace database credentials with your own
 $servername = "localhost";
 $username = "root";
@@ -73,14 +74,15 @@ if (mysqli_num_rows($email_result) > 0) {
 } else {
     // Generate OTP
     $otp = generate_random_int();
-    echo $otp; // Print OTP
+    $otpsms = generate_random_int();
 
     // Store it into the Database
-    $sql = "INSERT INTO accounttable (name, email, password, mobileNumber, mobileCode, otp) VALUES ('$name', '$email', '$password', '$mobileNumber', '$mobileCode','$otp')";
+    $sql = "INSERT INTO accounttable (name, email, password, mobileNumber, mobileCode, otp, otpsms) VALUES ('$name', '$email', '$password', '$mobileNumber', '$mobileCode','$otp','$otpsms')";
     // Execute SQL query
 
-    if (mysqli_query($conn, $sql) && sendMail($_POST['email'], $otp)) {
-        // Successfully inserted data
+    sendSMS($_POST['mobileNumber'], $otpsms);
+
+    if (mysqli_query($conn, $sql) && sendMail($_POST['email'], $otp) ) {
         header("Location: ../database/verify.php?email=$email");
         
     } else {
@@ -90,3 +92,5 @@ if (mysqli_num_rows($email_result) > 0) {
 
 // Close connection
 mysqli_close($conn);
+
+?>
