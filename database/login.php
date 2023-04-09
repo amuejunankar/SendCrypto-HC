@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 include './connection.php';
 $conn = connect();
 
@@ -12,7 +15,8 @@ $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) > 0) {
     // Email and password match, proceed to dashboard
-    header("Location: ../html/send.html");
+    $_SESSION['logged_in'] = true;
+    header("Location: ../html/account/account.php");
 } else {
     // Email and password do not match, show error message
     echo "Account not found";
@@ -22,3 +26,5 @@ if (mysqli_num_rows($result) > 0) {
 
 // Close connection
 mysqli_close($conn);
+
+?>
