@@ -64,7 +64,7 @@ if (isset($_POST['logout'])) {
             <li><a href="./transaction-history.php">Transaction History</a></li>
             <li><a href="">Transaction Settings</a></li>
             <li><a href="">Security</a></li>
-            
+
             <li>
                 <form method="POST"><button type="submit" name="logout">Logout</button></form>
             </li>
@@ -74,17 +74,19 @@ if (isset($_POST['logout'])) {
 
     <!-- Add your HTML content here -->
 
-    <div class="profile-header">
-        <h1>Profile Settings</h1>
-    </div>
 
-    <div class="profile-container">
-        <div class="profile-picture-container">
-            <img src="../../src/default-profile-picture.png" alt="Profile Picture">
-        </div>
 
-        <div class="profile-info">
-            <form>
+
+    <div class="profile-info" style="margin-left: 42%;
+                                    margin-top: 1%;">
+        <form>
+            <div class="profile-header">
+                <h1>Profile</h1>
+            </div>
+            <div class="profile-container">
+                <div class="profile-picture-container form-group">
+                    <img src="../../src/default-profile-picture.png" alt="Profile Picture">
+                </div>
                 <div class="form-group">
                     <label for="first-name">First Name:</label>
                     <input value="First demo" type="text" id="first-name" name="first-name" required>
@@ -105,11 +107,11 @@ if (isset($_POST['logout'])) {
                     <input value="12345678" type="tel" id="mobile-number" name="mobile-number" required disabled>
                 </div>
 
-
-                <button class="save-btn" type="submit">Save Changes</button>
-            </form>
-        </div>
+            </div>
+            <button class="save-btn" type="submit">Save Changes</button>
+        </form>
     </div>
+
 
 
 
