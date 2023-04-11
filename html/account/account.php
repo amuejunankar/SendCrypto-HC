@@ -156,12 +156,12 @@ mysqli_close($conn);
                     </div>
                     <div class="form-group">
                         <label for="first-name">First Name:</label>
-                        <input value="<?= $fname ?>" type="text" id="first-name" name="first-name" required>
+                        <input value="<?= $fname ?>" type="text" id="fname" name="fname" required>
                     </div>
 
                     <div class="form-group">
                         <label for="last-name">Last Name:</label>
-                        <input value="<?= $lname ?>" type="text" id="last-name" name="last-name" required>
+                        <input value="<?= $lname ?>" type="text" id="lname" name="lname" required>
                     </div>
 
                     <div class="form-group">
