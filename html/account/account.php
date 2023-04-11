@@ -124,7 +124,7 @@ mysqli_close($conn);
             <li><a href="">Profile Settings</a></li>
             <li><a href="./transaction-history.php">Transaction History</a></li>
             <li><a href="">Transaction Settings</a></li>
-            <li><a href="">Security</a></li>
+            <li><a href="./security.php">Security</a></li>
 
             <li>
                 <form method="POST"><button type="submit" name="logout">Logout</button></form>
