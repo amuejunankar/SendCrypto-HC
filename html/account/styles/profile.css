@@ -5,49 +5,75 @@
     background-color: #f5f5f5;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-  }
-  
-  .profile-header {
+}
+
+.profile-header {
     margin-bottom: 20px;
-  }
-  
-  .profile-header h1 {
+}
+
+.profile-header h1 {
     font-size: 32px;
     color: #333;
     margin-bottom: 10px;
     text-align: center;
-  }
-  
-  .profile-picture-container {
+}
+
+.profile-picture-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     width: 75%;
-  }
-  
-  .profile-picture-container img {
+}
+
+.profile-picture-container img {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-  }
-  
-  
-  .form-group {
+}
+
+.profile-picture-container::before {
+    content: "Upload Image";
+    position: absolute;
+    top: 32%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.profile-picture-container:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-picture-container img:hover {
+    opacity: 50%;
+}
+
+
+.form-group {
     margin-bottom: 20px;
     width: 100%;
     margin-left: 2%;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
-  }
-  
-  .form-group input {
+}
+
+.form-group input {
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -56,18 +82,18 @@
     color: #333;
     background-color: #f0f0f0;
     box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group input:focus {
+}
+
+.form-group input:focus {
     outline: none;
     box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .form-group input[disabled] {
+}
+
+.form-group input[disabled] {
     background-color: #ddd;
-  }
-  
-  .save-btn {
+}
+
+.save-btn {
     display: block;
     margin: 0 auto;
     padding: 12px 30px;
@@ -78,9 +104,8 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-  }
-  
-  .save-btn:hover {
+}
+
+.save-btn:hover {
     background-color: #0062cc;
-  }
-  
+}
