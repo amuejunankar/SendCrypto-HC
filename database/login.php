@@ -16,7 +16,7 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
     // Email and password match, proceed to dashboard
     $_SESSION['logged_in'] = true;
-    header("Location: ../html/account/account.php");
+    header("Location: ../html/account/account.php?email=$email");
 } else {
     // Email and password do not match, show error message
     echo "Account not found";
