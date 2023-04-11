@@ -44,9 +44,41 @@ if ($result && $result->num_rows > 0) {
     echo "0 results";
 }
 
-// Upload Image File
+// Query to fetch email and mobile number for a specific email address
+// Check if email is set in the URL
+$email = ''; // Initialize email variable
+$fname = ''; // Initialize first name variable
+$lname = ''; // Initialize last name variable
+$mobileNumber = ''; // Initialize mobile number variable
 
-// Update Form
+if (isset($_GET['email'])) {
+    $email = $_GET['email'];
+    // Query to fetch email, first name, last name, and mobile number for a specific email address
+    $sql = "SELECT email, fname, lname, mobilenumber FROM accounttable WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Loop through the query result and fetch email, first name, last name, and mobile number
+        while ($row = mysqli_fetch_assoc($result)) {
+            $email = $row["email"];
+            $fname = $row["fname"];
+            $lname = $row["lname"];
+            $mobileNumber = $row["mobilenumber"];
+        }
+    } else {
+        // Display nothing if no rows are returned
+        // Alternatively, you can show an error message or redirect to another page
+    }
+}
+
+// Free the query result
+mysqli_free_result($result);
+
+// Close the database connection
+mysqli_close($conn);
 
 ?>
 
@@ -124,22 +156,22 @@ if ($result && $result->num_rows > 0) {
                     </div>
                     <div class="form-group">
                         <label for="first-name">First Name:</label>
-                        <input value="First demo" type="text" id="first-name" name="first-name" required>
+                        <input value="<?= $fname ?>" type="text" id="first-name" name="first-name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="last-name">Last Name:</label>
-                        <input value="Last demo" type="text" id="last-name" name="last-name" required>
+                        <input value="<?= $lname ?>" type="text" id="last-name" name="last-name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input value="demo@gmail.com" type="email" id="email" name="email" required disabled>
+                        <input value="<?= $email ?>" type="email" id="email" name="email" required disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="mobile-number">Mobile Number:</label>
-                        <input value="12345678" type="tel" id="mobile-number" name="mobile-number" required disabled>
+                        <input value="<?= $mobileNumber ?>" type="tel" id="mobile-number" name="mobile-number" required disabled>
                     </div>
 
                 </div>

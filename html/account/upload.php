@@ -13,8 +13,6 @@ if (isset($_FILES["imageFile"]) && $_FILES["imageFile"]["error"] == 0) {
     mysqli_stmt_bind_param($stmt, "ss", $image_data, $email);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-
-    echo "Image uploaded successfully and path updated in database.";
 }
 
 // Redirect back to account page
