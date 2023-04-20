@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ethereum Transaction</title>
+  <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #f2a654, #ffd07f);
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #3e8e41;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Ethereum Transaction</h1>
+    <form>
+      <div class="form-group">
+        <label for="toAddress">To:</label>
+        <input type="text" id="toAddress" required>
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount (ETH):</label>
+        <input type="number" id="amount" step="0.0001" required>
+      </div>
+      <button type="button" onclick="sendEther()">Send</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function sendEther() {
+      // Detect MetaMask provider
+      const provider = await detectEthereumProvider();
+      if (provider) {
+        // Request access to user's MetaMask account
+        await ethereum.request({ method: 'eth_requestAccounts' });
+
+        // Create an ethers.js provider using MetaMask provider
+        const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+
+        // Get the signer object from ethers.js provider
+        const signer = ethersProvider.getSigner();
+
+        // Get the "To" address and the amount to send from the form
+        const toAddress = document.getElementById('toAddress').value;
+        const amount = ethers.utils.parseEther(document.getElementById('amount').value);
+
+        // Create an Ethereum transaction object
+        const tx = {
+          to: toAddress,
+          value: amount,
+        };
+
+        // Sign and send the transaction
+        const transactionResponse = await signer.sendTransaction(tx);
+
+        // Wait for the transaction to be mined
+        const transactionReceipt = await transactionResponse.wait();
+
+        // Display transaction hash and status
+        const transactionHash = transactionReceipt.transactionHash;
+        const transactionStatus = transactionReceipt.status === 1 ? 'Success' : 'Failed';
+        document.getElementById('result').innerHTML = `Transaction Hash: ${transactionHash}<br>Status: ${transactionStatus}`;
+      } else {
+        // MetaMask not detected
+        alert('MetaMask not detected. Please install MetaMask extension.');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
