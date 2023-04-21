@@ -3,35 +3,107 @@
 
 <head>
   <title>Send ETH via MetaMask</title>
-  <link rel="stylesheet" href="style.css">
+
   <style>
-    /* Center all elements on the page */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    .css-blurry-gradient {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      width: 800px;
+      height: 800px;
+      border-radius: 50% 22% 80% 80%;
+      filter: blur(100px);
+      background: radial-gradient(circle at 50% 50%, rgb(61, 229, 15), rgba(76, 0, 255, 0));
+      opacity: 0.2;
+    }
+
+    .card {
+      max-width: 400px;
+      margin: 200px auto;
+      padding: 20px;
+      background-color: #f8f8f8;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .enableEthereumButton,
+    .sendEthButton {
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      /* Add background color */
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .enableEthereumButton:hover,
+    .sendEthButton:hover {
+      background-color: #0069d9;
+    }
+
+    .toAddressInput,
+    .amountToSendInput {
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+      padding: 10px;
+      /* Add padding */
+      background-color: #f8f8f8;
+      color: #333;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+
+    .toAddressInput:focus,
+    .amountToSendInput:focus {
+      outline: none;
+      border-color: #007bff;
     }
   </style>
 </head>
 
 <body>
+  <div class="css-blurry-gradient">
+  </div>
 
-  <button class="enableEthereumButton btn">Enable Ethereum</button>
-  <input type="text" class="toAddressInput" placeholder="Enter recipient address">
-  <button class="sendEthButton btn">Send ETH</button>
-
-
+  <div class="card">
+    <input type="text" class="toAddressInput" placeholder="Enter recipient address">
+    <input type="text" class="amountToSendInput" placeholder="Enter amount (in Ether)">
+    <button class="sendEthButton btn">Send ETH</button>
+  </div>
   <script>
-    const ethereumButton = document.querySelector('.enableEthereumButton');
     const sendEthButton = document.querySelector('.sendEthButton');
     const toAddressInput = document.querySelector('.toAddressInput');
+    const amountToSendInput = document.querySelector('.amountToSendInput');
 
     let accounts = [];
 
     // Send Ethereum to an address
-    sendEthButton.addEventListener('click', () => {
+    sendEthButton.addEventListener('click', async () => {
       const toAddress = toAddressInput.value; // Get the recipient address from the input field
+      const amountToSend = amountToSendInput.value; // Get the amount to send from the input field
+      const amountToSendWeiHex = parseInt(amountToSend * 1e18).toString(16); // Convert ether to wei and then to hexadecimal
+
+      // Enable Ethereum if not enabled
+      if (accounts.length === 0) {
+        try {
+          accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        } catch (error) {
+          console.error(error);
+          return;
+        }
+      }
+
+      // Send transaction
       ethereum
         .request({
           method: 'eth_sendTransaction',
@@ -39,22 +111,16 @@
             {
               from: accounts[0], // The user's active address.
               to: toAddress, // Set the recipient address to the user-entered value.
-              value: '0x67476F67C4651B', // Only required to send ether to the recipient from the initiating external account.
+              value: amountToSendWeiHex, // Set the amount to send in wei.
             },
           ],
         })
         .then((txHash) => console.log(txHash))
         .catch((error) => console.error(error));
     });
-
-    ethereumButton.addEventListener('click', () => {
-      getAccount();
-    });
-
-    async function getAccount() {
-      accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    }
   </script>
+
+
 </body>
 
 </html>
