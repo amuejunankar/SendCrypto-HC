@@ -1,3 +1,48 @@
+<?php
+
+
+
+include '../../database/connection.php';
+$conn = connect();
+
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$password = mysqli_real_escape_string($conn, $_POST['password']);
+
+// Check if email and password match in database
+$query = "SELECT * FROM accounttable WHERE email = '$email' AND password = '$password'";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) > 0) {
+    // Email and password match, proceed to dashboard
+
+    // Delete account from database
+    $sql = "DELETE FROM accounttable WHERE email = ? AND password = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        echo "Account deleted successfully.";
+        session_unset();
+        session_destroy();
+        $_SESSION['logged_in'] = false;
+        header("Location: ../login.html");
+    } else {
+        echo "Failed to delete account. Please check your email and password.";
+    }
+
+} else {
+    // Email and password do not match, show error message
+    echo "Invalid Email or Password";
+}
+
+
+
+// Close connection
+mysqli_close($conn);
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +63,7 @@
 
         .container {
             max-width: 400px;
-            margin: 100px auto;
+            margin: 40px auto;
             padding: 40px;
             background-color: #ffffff;
             border-radius: 10px;
@@ -39,7 +84,7 @@
         }
 
         form {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .form-group {
@@ -121,7 +166,7 @@
             <li><a href="./account.php">Profile Settings</a></li>
             <li><a href="./transaction-history.php">Transaction History</a></li>
             <li><a href="">Transaction Settings</a></li>
-            <li><a href="./security.php">Security</a></li>
+            <li><a href="./security.php?">Security</a></li>
 
             <li>
                 <form method="POST"><button type="submit" name="logout">Logout</button></form>
@@ -132,7 +177,7 @@
     <div class="container">
         <h1>Delete Account</h1>
         <p class="message">Are you sure you want to delete your account? This action cannot be undone.</p>
-        <form action="delete_account.php" method="post">
+        <form action="" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter Email">
