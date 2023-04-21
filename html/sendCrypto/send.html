@@ -81,12 +81,16 @@
     <button class="sendEthButton btn">Send ETH</button>
   </div>
   <script>
+
+    // Acccess To DB
+    const pool = require('./connnection.js');
+
     const sendEthButton = document.querySelector('.sendEthButton');
     const toAddressInput = document.querySelector('.toAddressInput');
     const amountToSendInput = document.querySelector('.amountToSendInput');
 
     let accounts = [];
-
+    
     // Send Ethereum to an address
     sendEthButton.addEventListener('click', async () => {
       const toAddress = toAddressInput.value; // Get the recipient address from the input field
@@ -115,7 +119,7 @@
             },
           ],
         })
-        .then((txHash) => console.log(txHash))
+        .then((txHash) => console.log(txHash)) // https://sepolia.etherscan.io/tx/0xcf....42
         .catch((error) => console.error(error));
     });
   </script>

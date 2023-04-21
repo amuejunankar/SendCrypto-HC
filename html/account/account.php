@@ -18,15 +18,15 @@ if (isset($_POST['logout'])) {
     exit;
 }
 
-// T O   D O
+// Add Session FIles
+$email = $_SESSION['email'];
 
 // Import Connection Files
-
 include '../../database/connection.php';
 $conn = connect();
 
 // Retrieve profile picture from database and output as HTML
-$email = 'junankgg@gmail.com';
+$email = $_SESSION['email'];
 $sql = "SELECT profile_picture FROM accounttable WHERE email = ?"; // Replace with your appropriate query
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -51,8 +51,8 @@ $fname = ''; // Initialize first name variable
 $lname = ''; // Initialize last name variable
 $mobileNumber = ''; // Initialize mobile number variable
 
-if (isset($_GET['email'])) {
-    $email = $_GET['email'];
+if ($email = $_SESSION['email']) {
+    
     // Query to fetch email, first name, last name, and mobile number for a specific email address
     $sql = "SELECT email, fname, lname, mobilenumber FROM accounttable WHERE email = ?";
     $stmt = mysqli_prepare($conn, $sql);
@@ -61,6 +61,7 @@ if (isset($_GET['email'])) {
     $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
+        
         // Loop through the query result and fetch email, first name, last name, and mobile number
         while ($row = mysqli_fetch_assoc($result)) {
             $email = $row["email"];
