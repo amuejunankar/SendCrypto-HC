@@ -103,20 +103,44 @@ if (isset($_POST['logout'])) {
     <div class="header">
         <div class="navbar">
             <div class="logo">
-                <a href="../../index.html">Send Crypto</a>
+                <a href="../../index.php">Send Crypto</a>
             </div>
             <ul class="navLinks">
                 <li>
-                    <a href="../../index.html">Home</a>
+                    <a href="../../index.php">Home</a>
                 </li>
                 <li>
-                    <a href="../send.html">Send</a>
+                    <?php
+                    // Start the session
+                    
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="../send.php">Send</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="../sendOld.php">Send</a>';
+                    }
+                    ?>
                 </li>
                 <li>
                     <a href="">Receive</a>
                 </li>
                 <li>
-                    <a href="./account.php">My Account</a>
+                    <?php
+                    // Start the session
+
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="./account.php">My Account</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="./html/login.php">Login</a>';
+                    }
+                    ?>
                 </li>
             </ul>
         </div>
