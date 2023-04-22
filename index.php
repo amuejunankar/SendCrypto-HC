@@ -55,6 +55,7 @@
                         echo '<a href="./html/login.php">Login</a>';
                     }
                     ?>
+                </li>
             </ul>
         </div>
     </div>
