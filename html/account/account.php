@@ -52,7 +52,7 @@ $lname = ''; // Initialize last name variable
 $mobileNumber = ''; // Initialize mobile number variable
 
 if ($email = $_SESSION['email']) {
-    
+
     // Query to fetch email, first name, last name, and mobile number for a specific email address
     $sql = "SELECT email, fname, lname, mobilenumber FROM accounttable WHERE email = ?";
     $stmt = mysqli_prepare($conn, $sql);
@@ -61,7 +61,7 @@ if ($email = $_SESSION['email']) {
     $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
-        
+
         // Loop through the query result and fetch email, first name, last name, and mobile number
         while ($row = mysqli_fetch_assoc($result)) {
             $email = $row["email"];
@@ -101,14 +101,26 @@ mysqli_close($conn);
     <div class="header">
         <div class="navbar">
             <div class="logo">
-                <a href="../../index.html">Send Crypto</a>
+                <a href="../../index.php">Send Crypto</a>
             </div>
             <ul class="navLinks">
                 <li>
-                    <a href="../../index.html">Home</a>
+                    <a href="../../index.php">Home</a>
                 </li>
                 <li>
-                    <a href="../send.html">Send</a>
+                    <?php
+                    // Start the session
+                    
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="../send.php">Send</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="../sendOld.php">Send</a>';
+                    }
+                    ?>
                 </li>
                 <li>
                     <a href="">Receive</a>
