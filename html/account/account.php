@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is not logged in, then redirect to login page
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header("Location: ../login.html");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -14,7 +14,7 @@ if (isset($_POST['logout'])) {
     // destroy the session
     session_destroy();
     // redirect to the login page
-    header('Location: ../login.html');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -136,7 +136,7 @@ mysqli_close($conn);
         <ul>
             <li><a href="">Profile Settings</a></li>
             <li><a href="./transaction-history.php">Transaction History</a></li>
-            <li><a href="">Transaction Settings</a></li>
+            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
             <li><a href="./security.php">Security</a></li>
 
             <li>
