@@ -70,12 +70,14 @@ if (isset($_POST['logout'])) {
 
       </ul>
 
-      
+
     </div>
   </div>
   <br></br><br></br>
+
+
   <div class="dashboard-card">
-    <div class="dashboard-left">
+    <a href="https://example.com/recent-activity" class="dashboard-left">
       <div class="card-section recent-activity">
         <h2>Recent Activity</h2>
         <p>
@@ -83,22 +85,28 @@ if (isset($_POST['logout'])) {
           <strong>03/25/2023:</strong> Paid rent for $1500
         </p>
       </div>
-      <div class="card-section month-spending">
-        <h2>Recharge Prepaid</h2>
-        <p>Jio And Airtel</p>
-      </div>
-      <div class="card-section payment-settings">
-        <h2>Payment Settings</h2>
-        <p>Credit card ending in **** **** **** 1234</p>
-      </div>
-    </div>
-    <div class="dashboard-right your-transactions">
-      <div class="large-card">
+    </a>
+    <a href="https://example.com/recharge-prepaid" class="card-section month-spending">
+      <h2>Send To Mobile Number</h2>
+      <p>Jio And Airtel</p>
+    </a>
+    <a href="https://example.com/recharge-prepaid" class="card-section month-spending">
+      <h2>Send To Address</h2>
+      <p>Jio And Airtel</p>
+    </a>
+    <a href="https://example.com/payment-settings" class="card-section payment-settings">
+      <h2>Payment Settings</h2>
+      <p>Credit card ending in **** **** **** 1234</p>
+    </a>
+    <div class="dashboard-right">
+      <a href="https://example.com/your-transactions" class="large-card">
         <h2>Your Transactions</h2>
         <p>2 transactions totaling $250</p>
-      </div>
+      </a>
     </div>
   </div>
+
+
 </body>
 
 </html>

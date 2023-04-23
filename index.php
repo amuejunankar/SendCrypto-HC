@@ -63,7 +63,7 @@
     <div class="landing-page-container">
         <h1 class="landing-page-title">Crypto Transfer Evolution</h1>
         <p class="landing-page-description">With our platform, you can easily transfer your cryptocurrencies to anyone, anywhere in the world.</p>
-        <a href="./html/login.html">
+        <a href="./html/login.php">
             <button class="landing-page-button">Get Started</button>
         </a>
     </div>
