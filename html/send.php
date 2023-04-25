@@ -78,7 +78,7 @@ if (isset($_POST['logout'])) {
 
 
   <div class="card-container">
-    <a href="send-to-number.html" class="card">
+    <a href="./sendCrypto/sendNumber.php" class="card">
       <img src="./account/src/image1.jpg" alt="Image 1">
       <div class="overlay">
         <h1>Send To Number</h1>
