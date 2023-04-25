@@ -30,7 +30,7 @@ if (isset($_POST['logout'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Send</title>
+  <title>Send Crypto</title>
   <link rel="stylesheet" href="../styles/navbar.css">
   <link rel="stylesheet" href="../styles/send.css">
 
@@ -76,35 +76,37 @@ if (isset($_POST['logout'])) {
   <br></br><br></br>
 
 
-  <div class="dashboard-card">
-    <a href="https://example.com/recent-activity" class="dashboard-left">
-      <div class="card-section recent-activity">
-        <h2>Recent Activity</h2>
-        <p>
-          <strong>03/28/2023:</strong> Purchased groceries for $100<br />
-          <strong>03/25/2023:</strong> Paid rent for $1500
-        </p>
+
+  <div class="card-container">
+    <div class="card">
+      <img src="./account/src/image1.jpg" alt="Image 1">
+      <div class="overlay">
+        <h1>Send To Number</h1>
+        <br><br><br><br><br>
+        <p>Send Crypto money via mobile money transfer service</p>
       </div>
-    </a>
-    <a href="https://example.com/recharge-prepaid" class="card-section month-spending">
-      <h2>Send To Mobile Number</h2>
-      <p>Jio And Airtel</p>
-    </a>
-    <a href="https://example.com/recharge-prepaid" class="card-section month-spending">
-      <h2>Send To Address</h2>
-      <p>Jio And Airtel</p>
-    </a>
-    <a href="https://example.com/payment-settings" class="card-section payment-settings">
-      <h2>Payment Settings</h2>
-      <p>Credit card ending in **** **** **** 1234</p>
-    </a>
-    <div class="dashboard-right">
-      <a href="https://example.com/your-transactions" class="large-card">
-        <h2>Your Transactions</h2>
-        <p>2 transactions totaling $250</p>
-      </a>
     </div>
+    <div class="card">
+      <img src="./account/src/image3.webp" alt="Image 2">
+      <div class="overlay">
+        <h1>Send To Address</h1>
+        <br><br><br><br><br>
+        <p>Securely send money to recipients anywhere anytime</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="./account/src/image2.jpg" alt="Image 2">
+      <div class="overlay">
+        <h1>Recharge Prepaid</h1>
+        <br><br><br><br>
+        <p>Recharge Your Prepaid Number with our best professional solutions</p>
+      </div>
+    </div>
+    <!-- Add more cards as needed -->
   </div>
+
+
+
 
 
 </body>
