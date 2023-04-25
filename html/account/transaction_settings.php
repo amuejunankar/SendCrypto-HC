@@ -148,17 +148,16 @@ mysqli_close($conn);
     </div>
 
     <!-- ---------------------MAIN THINGS----------------------- -->
-    
+
+    // HTML code
     <h1>Transaction Settings</h1>
     <p id="address">Your MetaMask address will be displayed here.</p>
     <button id="enableBtn">Enable Mobile Number Transaction</button>
 
-
-
-
-
     <script>
-        
+        // Declare global variable to store user's Ethereum address
+        var eth_address = '';
+
         document.getElementById('enableBtn').addEventListener('click', function() {
             // Check if MetaMask is installed
             if (typeof window.ethereum === 'undefined') {
@@ -166,22 +165,37 @@ mysqli_close($conn);
                 return;
             }
 
-            
             // Request MetaMask to connect
             ethereum.request({
                     method: 'eth_requestAccounts'
                 })
                 .then(accounts => {
                     // Store user's address in a variable
-                    var user_addr = accounts[0];
+                    eth_address = accounts[0];
                     // Update the paragraph with the user's address
-                    document.getElementById('address').textContent = 'Your MetaMask address: ' + user_addr;
+                    document.getElementById('address').textContent = 'Your MetaMask address: ' + eth_address;
+
+                    // Send an AJAX request to update_eth_address.php to update the eth_address in the database
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'update_eth_address.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                console.log('eth_address updated successfully!');
+                            } else {
+                                console.error('Failed to update eth_address: ' + xhr.statusText);
+                            }
+                        }
+                    };
+                    xhr.send('eth_address=' + eth_address);
                 })
                 .catch(error => {
                     console.error('Failed to connect to MetaMask:', error);
                 });
         });
     </script>
+
 
 </body>
 

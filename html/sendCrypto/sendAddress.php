@@ -142,43 +142,30 @@ if (isset($_POST['logout'])) {
 
 
 
+  <!-- HTML code -->
   <div class="card">
     <h1>Send To Address</h1>
     <input type="text" class="toAddressInput" placeholder="Enter recipient address">
     <input type="text" class="amountToSendInput" placeholder="Enter amount (in Ether)">
-      <br>
+    <br>
     <button class="sendEthButton btn">Send ETH</button>
   </div>
 
-
-
-
   <script>
-    // Acccess To DB
-    const pool = require('./connnection.js');
-
+    // JavaScript code
     const sendEthButton = document.querySelector('.sendEthButton');
     const toAddressInput = document.querySelector('.toAddressInput');
     const amountToSendInput = document.querySelector('.amountToSendInput');
-
-    let accounts = [];
 
     // Send Ethereum to an address
     sendEthButton.addEventListener('click', async () => {
       const toAddress = toAddressInput.value; // Get the recipient address from the input field
       const amountToSend = amountToSendInput.value; // Get the amount to send from the input field
-      const amountToSendWeiHex = parseInt(amountToSend * 1e18).toString(16); // Convert ether to wei and then to hexadecimal
+      const amountToSendWei = amountToSend * 1e18; // Convert ether to wei
 
       // Enable Ethereum if not enabled
-      if (accounts.length === 0) {
-        try {
-          accounts = await ethereum.request({
-            method: 'eth_requestAccounts'
-          });
-        } catch (error) {
-          console.error(error);
-          return;
-        }
+      if (typeof ethereum !== 'undefined') {
+        await ethereum.enable();
       }
 
       // Send transaction
@@ -186,10 +173,10 @@ if (isset($_POST['logout'])) {
         .request({
           method: 'eth_sendTransaction',
           params: [{
-            from: accounts[0], // The user's active address.
+            from: ethereum.selectedAddress, // The user's active address.
             to: toAddress, // Set the recipient address to the user-entered value.
-            value: amountToSendWeiHex, // Set the amount to send in wei.
-          }, ],
+            value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
+          }],
         })
         .then((txHash) => console.log(txHash)) // https://sepolia.etherscan.io/tx/0xcf....42
         .catch((error) => console.error(error));
