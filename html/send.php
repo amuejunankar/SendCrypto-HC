@@ -78,30 +78,30 @@ if (isset($_POST['logout'])) {
 
 
   <div class="card-container">
-    <div class="card">
+    <a href="send-to-number.html" class="card">
       <img src="./account/src/image1.jpg" alt="Image 1">
       <div class="overlay">
         <h1>Send To Number</h1>
         <br><br><br><br><br>
         <p>Send Crypto money via mobile money transfer service</p>
       </div>
-    </div>
-    <div class="card">
+    </a>
+    <a href="./sendCrypto/sendAddress.php" class="card">
       <img src="./account/src/image3.webp" alt="Image 2">
       <div class="overlay">
         <h1>Send To Address</h1>
         <br><br><br><br><br>
         <p>Securely send money to recipients anywhere anytime</p>
       </div>
-    </div>
-    <div class="card">
+    </a>
+    <a href="recharge-prepaid.html" class="card">
       <img src="./account/src/image2.jpg" alt="Image 2">
       <div class="overlay">
         <h1>Recharge Prepaid</h1>
         <br><br><br><br>
         <p>Recharge Your Prepaid Number with our best professional solutions</p>
       </div>
-    </div>
+    </a>
     <!-- Add more cards as needed -->
   </div>
 

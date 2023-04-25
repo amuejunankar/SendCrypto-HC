@@ -1,22 +1,45 @@
+<?php
+
+session_start();
+
+// Check if user is not logged in, then redirect to login page
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+  header("Location: ../send.html");
+  exit;
+}
+
+// logout script
+if (isset($_POST['logout'])) {
+  // unset all session variables
+  session_unset();
+  // destroy the session
+  session_destroy();
+  // redirect to the login page
+  header('Location: ../login.html');
+  exit;
+}
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Send ETH via MetaMask</title>
+  <link rel="stylesheet" href="../../styles/navbar.css">
+
 
   <style>
-    .css-blurry-gradient {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, 0%);
-      width: 800px;
-      height: 800px;
-      border-radius: 50% 22% 80% 80%;
-      filter: blur(100px);
-      background: radial-gradient(circle at 50% 50%, rgb(61, 229, 15), rgba(76, 0, 255, 0));
-      opacity: 0.2;
+    .body {
+      background-color: #4f6bff;
     }
+
 
     .card {
       max-width: 400px;
@@ -24,9 +47,13 @@
       padding: 20px;
       background-color: #f8f8f8;
       border-radius: 5px;
+      font-family: "Lato", sans-serif;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
+    .card h1 {
+      text-align: center;
+    }
 
     .enableEthereumButton,
     .sendEthButton {
@@ -41,6 +68,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      width: 55%;
     }
 
     .enableEthereumButton:hover,
@@ -51,6 +79,7 @@
     .toAddressInput,
     .amountToSendInput {
       display: block;
+      width: 75%;
       margin: 0 auto;
       margin-top: 10px;
       padding: 10px;
@@ -71,17 +100,60 @@
   </style>
 </head>
 
-<body>
-  <div class="css-blurry-gradient">
+<body class="body">
+
+  <div class="header">
+    <div class="navbar">
+      <div class="logo">
+        <a href="../../index.php">Send Crypto</a>
+      </div>
+      <ul class="navLinks">
+        <li>
+          <a href="../../index.php">Home</a>
+        </li>
+        <li>
+          <a href="../send.php">Send</a>
+        </li>
+        <li>
+          <a href="">Receive</a>
+        </li>
+        <li>
+          <?php
+          // Start the session
+
+          // Check if user is logged in
+          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+            // If user is logged in, display My Account link
+            echo '<a href=".././account/account.php">My Account</a>';
+          } else {
+            // If user is not logged in, display Login link
+            echo '<a href="../../html/login.html">Login</a>';
+          }
+          ?>
+        </li>
+
+      </ul>
+
+
+    </div>
   </div>
+  <br></br><br></br>
+
+
+
 
   <div class="card">
+    <h1>Send To Address</h1>
     <input type="text" class="toAddressInput" placeholder="Enter recipient address">
     <input type="text" class="amountToSendInput" placeholder="Enter amount (in Ether)">
+      <br>
     <button class="sendEthButton btn">Send ETH</button>
   </div>
-  <script>
 
+
+
+
+  <script>
     // Acccess To DB
     const pool = require('./connnection.js');
 
@@ -90,7 +162,7 @@
     const amountToSendInput = document.querySelector('.amountToSendInput');
 
     let accounts = [];
-    
+
     // Send Ethereum to an address
     sendEthButton.addEventListener('click', async () => {
       const toAddress = toAddressInput.value; // Get the recipient address from the input field
@@ -100,7 +172,9 @@
       // Enable Ethereum if not enabled
       if (accounts.length === 0) {
         try {
-          accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          accounts = await ethereum.request({
+            method: 'eth_requestAccounts'
+          });
         } catch (error) {
           console.error(error);
           return;
@@ -111,13 +185,11 @@
       ethereum
         .request({
           method: 'eth_sendTransaction',
-          params: [
-            {
-              from: accounts[0], // The user's active address.
-              to: toAddress, // Set the recipient address to the user-entered value.
-              value: amountToSendWeiHex, // Set the amount to send in wei.
-            },
-          ],
+          params: [{
+            from: accounts[0], // The user's active address.
+            to: toAddress, // Set the recipient address to the user-entered value.
+            value: amountToSendWeiHex, // Set the amount to send in wei.
+          }, ],
         })
         .then((txHash) => console.log(txHash)) // https://sepolia.etherscan.io/tx/0xcf....42
         .catch((error) => console.error(error));
