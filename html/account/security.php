@@ -169,7 +169,6 @@ mysqli_close($conn);
                     <?php
                     // Start the session
 
-
                     // Check if user is logged in
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                         // If user is logged in, display My Account link
@@ -188,8 +187,8 @@ mysqli_close($conn);
         <ul>
             <li><a href="./account.php">Profile Settings</a></li>
             <li><a href="./transaction-history.php">Transaction History</a></li>
-            <li><a href="">Transaction Settings</a></li>
-            <li><a href="./security.php?">Security</a></li>
+            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
+            <li><a href="">Security</a></li>
 
             <li>
                 <form method="POST"><button type="submit" name="logout">Logout</button></form>
