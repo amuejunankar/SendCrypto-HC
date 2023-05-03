@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is not logged in, then redirect to login page
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header("Location: ../login.html");
+    header("Location: ../login.php");
     exit;
 }
 
@@ -14,12 +14,11 @@ if (isset($_POST['logout'])) {
     // destroy the session
     session_destroy();
     // redirect to the login page
-    header('Location: ../login.html');
+    header('Location: ../login.php');
     exit;
 }
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -28,9 +27,7 @@ if (isset($_POST['logout'])) {
 <head>
     <title>Transaction History</title>
     <link rel="stylesheet" href="../../styles/navbar.css">
-    <link rel="stylesheet" href="./styles/sidebar.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
     <style>
         body {
@@ -40,60 +37,154 @@ if (isset($_POST['logout'])) {
         }
 
         table {
+            font-family: Arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            margin-left: 18%;
-            margin-right: 18%;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+
         }
 
-        th,
-        td {
-            text-align: center;
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-
+        td,
         th {
-            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
         }
 
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
-        @media only screen and (max-width: 600px) {
+        th {
+            background-color: #4CAF50;
+            color: white;
+
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        @media only screen and (max-width: 768px) {
+
+            /* Adjust styles for smaller screens */
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .content {
+                width: 100%;
+            }
+
             table {
                 width: 100%;
-                margin-left: 5%;
-                margin-right: 5%;
-            }
-
-            th,
-            td {
-                display: block;
-                text-align: center;
-            }
-
-            th {
-                height: 50px;
-            }
-
-            td {
-                height: 70px;
-            }
-
-            td:before {
-                content: attr(data-label);
-                float: left;
-                font-weight: bold;
-                text-transform: uppercase;
-                margin-bottom: 5px;
             }
         }
-    </style>
 
+        .table-container {
+            margin-left: 240px;
+            margin-right: 20px;
+            /* Adjust this value to match the width of your sidebar */
+        }
+
+        .sidebar {
+            /* Adjust this value as needed */
+            height: 100%;
+
+        }
+
+        /* Styles for larger screens */
+        .sidebar {
+            width: 200px;
+            float: left;
+        }
+
+        /* Styles for smaller screens */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                float: none;
+            }
+        }
+
+        .sidebar {
+            height: 100%;
+            margin-top: 80px;
+            width: 225px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #555;
+            overflow-x: hidden;
+            padding-top: 20px;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 18px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .sidebar li {
+            padding: 12px 12px;
+            border-bottom: 1px solid #555;
+
+
+        }
+
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar li a {
+            color: #fff;
+            text-decoration: none;
+            background-color: rgb(78, 76, 74);
+            border-radius: 6px;
+            padding: 12px 12px;
+            padding-top: 5%;
+
+            white-space: nowrap;
+        }
+
+        .sidebar li a:hover {
+            color: #ccc;
+            background-color: #444;
+        }
+
+        .sidebar li button {
+            color: #fff;
+            background-color: rgba(210, 105, 30, 0.572);
+            border: none;
+            padding: 12px 12px;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: left;
+            width: 100%;
+            border-radius: 6px;
+
+        }
+
+        .sidebar li button:hover {
+            background-color: #cd4545;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+    </style>
 
 </head>
 
@@ -112,7 +203,6 @@ if (isset($_POST['logout'])) {
                 <li>
                     <?php
                     // Start the session
-                    
 
                     // Check if user is logged in
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
@@ -131,7 +221,6 @@ if (isset($_POST['logout'])) {
                     <?php
                     // Start the session
 
-
                     // Check if user is logged in
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                         // If user is logged in, display My Account link
@@ -147,65 +236,89 @@ if (isset($_POST['logout'])) {
     </div>
     <br><br><br><br><br>
 
-    <div class="sidebar">
-        <ul>
-            <li><a href="./account.php">Profile Settings</a></li>
-            <li><a href="">Transaction History</a></li>
-            <li><a href="">Transaction Settings</a></li>
-            <li><a href="">Security</a></li>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="./account.php">Profile Settings</a></li>
+                <li><a href="">Transaction History</a></li>
+                <li><a href="./transaction_settings.php">Transaction Settings</a></li>
+                <li><a href="./security.php">Security</a></li>
 
-            <li>
-                <form method="POST"><button type="submit" name="logout">Logout</button></form>
-            </li>
-        </ul>
+                <li>
+                    <form method="POST"><button type="submit" name="logout">Logout</button></form>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>From Address</th>
+                    <th>To Address</th>
+                    <th>Amount</th>
+                    <th>Transaction Hash</th>
+                </tr>
+
+                <?php
+                // Retrieve email from session
+                $email = $_SESSION["email"];
+
+                // Connection Details
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "account";
+
+                // Create connection
+                $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+                // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+                // Prepare SQL statement and handle any errors
+                $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ?");
+                $stmt->bind_param("s", $email);
+
+                if (!$stmt) {
+                    die("Error preparing statement: " . mysqli_error($conn));
+                }
+
+                // Execute the SQL statement and handle any errors
+                if ($stmt->execute()) {
+                    // Store the result set in memory
+                    $result = $stmt->get_result();
+
+                    // Display transactions in a table
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["from_address"] . "</td>";
+                        echo "<td>" . $row["to_address"] . "</td>";
+                        echo "<td>" . $row["amount"] . "</td>";
+                        echo "<td><a href='https://sepolia.etherscan.io/tx/" . $row["tx_hash"] . "' target='_blank'>" . $row["tx_hash"] . "</a></td>";
+                        echo "</tr>";
+                    }
+
+                    // Free the memory used by the result set
+                    $result->free();
+                } else {
+                    echo "Error retrieving transaction data: " . $stmt->error;
+                }
+
+
+                // Close the prepared statement and database connection
+                $stmt->close();
+                mysqli_close($conn);
+                ?>
+            </table>
+        </div>
     </div>
 
 
-    <!-- Add your HTML content here -->
 
-
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Type</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-label="Date">01/01/2022</td>
-                <td data-label="Sender">John</td>
-                <td data-label="Receiver">Sarah</td>
-                <td data-label="Type">Send</td>
-                <td data-label="Amount">$100.00</td>
-            </tr>
-            <tr>
-                <td data-label="Date">02/01/2022</td>
-                <td data-label="Sender">Sarah</td>
-                <td data-label="Receiver">John</td>
-                <td data-label="Type">Receive</td>
-                <td data-label="Amount">$50.00</td>
-            </tr>
-            <tr>
-                <td data-label="Date">03/01/2022</td>
-                <td data-label="Sender">David</td>
-                <td data-label="Receiver">John</td>
-                <td data-label="Type">Send</td>
-                <td data-label="Amount">$75.00</td>
-            </tr>
-            <tr>
-                <td data-label="Date">04/01/2022</td>
-                <td data-label="Sender">John</td>
-                <td data-label="Receiver">David</td>
-                <td data-label="Type">Receive</td>
-                <td data-label="Amount">$25.00</td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
 
 
 

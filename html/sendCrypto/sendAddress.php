@@ -178,8 +178,48 @@ if (isset($_POST['logout'])) {
             value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
           }],
         })
-        .then((txHash) => console.log(txHash)) // https://sepolia.etherscan.io/tx/0xcf....42
+        .then((txHash) => {
+          console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
+
+          // Add confirmation message
+          const confirmationMsg = document.createElement('p');
+          confirmationMsg.textContent = `Transaction sent.`;
+          sendEthButton.parentElement.appendChild(confirmationMsg);
+
+          // Add button to view transaction on a block explorer
+          const viewTxButton = document.createElement('button');
+          viewTxButton.textContent = 'View Transaction on Etherscan';
+          viewTxButton.classList.add('viewTxButton', 'btn');
+          viewTxButton.addEventListener('click', () => {
+            window.open(`https://sepolia.etherscan.io/tx/${txHash}`, '_blank');
+          });
+          sendEthButton.parentElement.appendChild(viewTxButton);
+
+          // Insert transaction data into database
+          fetch('./insert_transaction_add.php', {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+              },
+              body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSend}&tx_hash=${txHash}`
+            })
+            .then(response => {
+              if (response.ok) {
+                console.log('Transaction data inserted successfully!');
+              } else {
+                throw new Error('Error inserting transaction data');
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              // Display error message to user
+              const errorMsg = document.createElement('p');
+              errorMsg.textContent = 'Transaction data could not be inserted into the database.';
+              sendEthButton.parentElement.appendChild(errorMsg);
+            });
+        })
         .catch((error) => console.error(error));
+
     });
   </script>
 
