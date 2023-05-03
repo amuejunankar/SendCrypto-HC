@@ -1,0 +1,154 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /* Adjust styles for smaller screens */
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+    }
+}
+
+.table-container {
+    margin-left: 240px;
+    margin-right: 20px;
+    /* Adjust this value to match the width of your sidebar */
+}
+
+.sidebar {
+    /* Adjust this value as needed */
+    height: 100%;
+
+}
+
+/* Styles for larger screens */
+.sidebar {
+    width: 200px;
+    float: left;
+}
+
+/* Styles for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        float: none;
+    }
+}
+
+.sidebar {
+    height: 100%;
+    margin-top: 80px;
+    width: 225px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #555;
+    overflow-x: hidden;
+    padding-top: 20px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.sidebar li {
+    padding: 12px 12px;
+    border-bottom: 1px solid #555;
+
+
+}
+
+.sidebar li:last-child {
+    border-bottom: none;
+}
+
+.sidebar li a {
+    color: #fff;
+    text-decoration: none;
+    background-color: rgb(78, 76, 74);
+    border-radius: 6px;
+    padding: 12px 12px;
+    padding-top: 5%;
+
+    white-space: nowrap;
+}
+
+.sidebar li a:hover {
+    color: #ccc;
+    background-color: #444;
+}
+
+.sidebar li button {
+    color: #fff;
+    background-color: rgba(210, 105, 30, 0.572);
+    border: none;
+    padding: 12px 12px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+    border-radius: 6px;
+
+}
+
+.sidebar li button:hover {
+    background-color: #cd4545;
+}
+
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
