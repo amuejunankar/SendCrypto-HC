@@ -95,20 +95,20 @@ if (isset($_GET['email'])) {
     <div class="header">
         <div class="navbar">
             <div class="logo">
-                <a href="../index.html">Send Crypto</a>
+                <a href="../index.php">Send Crypto</a>
             </div>
             <ul class="navLinks">
                 <li>
-                    <a href="../index.html">Home</a>
+                    <a href="../index.php">Home</a>
                 </li>
                 <li>
-                    <a href="../html/send.html">Send</a>
+                    <a href="../html/send.php">Send</a>
                 </li>
                 <li>
                     <a href="">Receive</a>
                 </li>
                 <li>
-                    <a href="../html/login.html">My Account</a>
+                    <a href="../html/login.php">My Account</a>
                 </li>
             </ul>
         </div>

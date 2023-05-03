@@ -70,11 +70,11 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
     <div class="header">
         <div class="navbar">
             <div class="logo">
-                <a href="../index.html">Send Crypto</a>
+                <a href="../index.php">Send Crypto</a>
             </div>
             <ul class="navLinks">
                 <li>
-                    <a href="../index.html">Home</a>
+                    <a href="../index.php">Home</a>
                 </li>
                 <li>
                     <a href="">Send</a>
@@ -83,7 +83,7 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
                     <a href="">Receive</a>
                 </li>
                 <li>
-                    <a href="../html/login.html">My Account</a>
+                    <a href="../html/login.php">My Account</a>
                 </li>
             </ul>
         </div>
