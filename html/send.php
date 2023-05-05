@@ -78,6 +78,16 @@ if (isset($_POST['logout'])) {
 
 
   <div class="card-container">
+    <a href="./qrcode.php" class="card">
+      <img src="./account/src/image4.png" alt="Image 1">
+      <div class="overlay">
+        <h1>Scan QR Code</h1>
+        <br><br><br><br><br>
+        <p>Scanning and paying by direct transactions to the user.</p>
+      </div>
+    </a>
+  
+  <div class="card-container">
     <a href="./sendCrypto/sendNumber.php" class="card">
       <img src="./account/src/image1.jpg" alt="Image 1">
       <div class="overlay">
@@ -97,7 +107,7 @@ if (isset($_POST['logout'])) {
     <a href="recharge-prepaid.html" class="card">
       <img src="./account/src/image2.jpg" alt="Image 2">
       <div class="overlay">
-        <h1>Recharge Prepaid</h1>
+        <h1>Progress / Working</h1>
         <br><br><br><br>
         <p>Recharge Your Prepaid Number with our best professional solutions</p>
       </div>
