@@ -39,7 +39,19 @@
                     ?>
                 </li>
                 <li>
-                    <a href="">Receive</a>
+                    <?php
+                    // Start the session
+                    
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="./html/receive.php">Receive</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="./html/receiveOld.php">Receive</a>';
+                    }
+                    ?>
                 </li>
                 <li>
                     <?php
