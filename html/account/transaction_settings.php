@@ -125,10 +125,33 @@ mysqli_close($conn);
                     ?>
                 </li>
                 <li>
-                    <a href="">Receive</a>
+                    <?php
+                    // Start the session
+
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="../receive.php">Receive</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="../receiveOld.php">Receive</a>';
+                    }
+                    ?>
                 </li>
                 <li>
-                    <a href="./account.php">My Account</a>
+                    <?php
+                    // Start the session
+
+                    // Check if user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                        // If user is logged in, display My Account link
+                        echo '<a href="./account/account.php">My Account</a>';
+                    } else {
+                        // If user is not logged in, display Login link
+                        echo '<a href="../html/login.html">Login</a>';
+                    }
+                    ?>
                 </li>
             </ul>
         </div>
