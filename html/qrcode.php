@@ -20,40 +20,33 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-
+    <script>
     const scanner = new Html5QrcodeScanner('reader', { 
-        // Scanner will be initialized in DOM inside element with id of 'reader'
         qrbox: {
             width: 250,
             height: 250,
-        },  // Sets dimensions of scanning box (set relative to reader element width)
-        fps: 30, // Frames per second to attempt a scan
+        },
+        fps: 30,
     });
 
-
     scanner.render(success, error);
-    // Starts scanner
 
     function success(result) {
-
-        document.getElementById('result').innerHTML = `
-        <h2>Success!</h2>
-        <p><a href="${result}">${result}</a></p>
-        `;
-        // Prints result as a link inside result element
-
-        scanner.clear();
-        // Clears scanning instance
-
-        document.getElementById('reader').remove();
-        // Removes reader element from DOM since no longer needed
-    
+    if (/^\d{10}$/.test(result)) {
+        const url = `sendCrypto/sendNumberScan.php?toAddress=${result}`;
+        window.location.href = url;
+    } else if (/^[a-zA-Z0-9]{42}$/.test(result)) {
+        const url = `sendCrypto/sendAddressScan.php?toAddress=${result}`;
+        window.location.href = url;
+    } else {
+        alert('Invalid recipient mobile number or Ethereum address. Please try again.');
+        scanner.restart();
     }
+}
+
+
 
     function error(err) {
         console.error(err);
-        // Prints any errors to the console
     }
-
 </script>
