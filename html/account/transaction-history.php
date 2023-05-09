@@ -163,12 +163,6 @@ if (isset($_POST['logout'])) {
     </div>
 
 
-
-
-
-
-
-
 </body>
 
 </html>
