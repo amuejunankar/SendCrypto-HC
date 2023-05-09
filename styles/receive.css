@@ -35,6 +35,7 @@ body {
     transition: all 0.3s ease;
     z-index: 1;
     position: relative;
+    
 }
 
 .card:hover {
