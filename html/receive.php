@@ -138,8 +138,10 @@ $conn->close();
   <div class="container">
     <div class="card-wrapper">
       <div class="card" id="left-div">
-        <br>
-        <h1>Scan QR Code</h1>
+        
+        <div class="h1">
+          <h1>Scan QR Code</h1>
+        </div>
         <div id="qrcode"></div>
         <label id="phone-label" for="phone">Your mobile number:</label>
         <div id="phone" type="tel" id="phone" name="phone"><?php echo $mobileNumber; ?></div>
@@ -148,10 +150,9 @@ $conn->close();
 
     <div class="card-wrapper">
       <div class="card" id="right-div">
+        
         <h1>Scan QR Code</h1>
-        <br><br>
         <div id="qrcode2"></div>
-        <br><br>
         <label id="eth-label" for="eth">Your ETH Address:</label>
         <div id="eth" type="tel" id="eth" name="eth"><?php echo $eth_address; ?></div>
       </div>
