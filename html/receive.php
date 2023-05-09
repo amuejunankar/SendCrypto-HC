@@ -43,52 +43,7 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<br><br><br><br><br><br><br>
-
-
-<!-- Generate and show QR code of user. get value from Database -->
-
-<div id="container">
-  <div id="left-div">
-
-    <h1>QR Code</h1>
-    <div id="qrcode"></div>
-    <label id="phone-label" for="phone">Your mobile number:</label>
-    <div type="tel" id="phone" name="phone"><?php echo $mobileNumber; ?></div>
-  </div>
-
-  <div id="right-div">
-    <h1>Right Div</h1>
-    <p>This is the right div.</p>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<script>
-  function generateQRCode() {
-    const phoneNumber = document.getElementById("phone").textContent;
-    const qrCodeDiv = document.getElementById("qrcode");
-    qrCodeDiv.innerHTML = "";
-
-    const qrCode = new QRCode(qrCodeDiv, {
-      text: phoneNumber,
-      width: 256,
-      height: 256,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  }
-
-  // Call the generateQRCode() function after the page is fully loaded
-  window.addEventListener('load', generateQRCode);
-</script>
-
-
-
-
-
-
+<br><br><br><br>
 
 
 
@@ -147,6 +102,49 @@ $conn->close();
     </div>
   </div>
   <br></br><br></br>
+
+
+  <!-- Generate and show QR code of user. get value from Database -->
+  <div class="container">
+    <div class="card-wrapper">
+      <div class="card" id="left-div">
+        <h1>Scan QR Code</h1>
+        <div id="qrcode"></div>
+        <label id="phone-label" for="phone">Your mobile number:</label>
+        <div id="phone" type="tel" id="phone" name="phone"><?php echo $mobileNumber; ?></div>
+      </div>
+    </div>
+
+    <div class="card-wrapper">
+      <div class="card" id="right-div">
+        <h1>Right Div</h1>
+        <p>This is the right div.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script>
+    function generateQRCode() {
+      const phoneNumber = document.getElementById("phone").textContent;
+      const qrCodeDiv = document.getElementById("qrcode");
+      qrCodeDiv.innerHTML = "";
+
+      const qrCode = new QRCode(qrCodeDiv, {
+        text: phoneNumber,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Call the generateQRCode() function after the page is fully loaded
+    window.addEventListener('load', generateQRCode);
+  </script>
+
 
 
 </body>
