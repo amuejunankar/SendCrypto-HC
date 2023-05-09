@@ -87,7 +87,7 @@ $conn->close();
 
 
   <div class="blur-image">
-    <img src="../src/blur.jpg" style="width:1200px;height:400px" >
+    <img src="../src/blur2.jpg" style="width:1200px;height:400px" >
   </div>
 
 
