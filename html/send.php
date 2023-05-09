@@ -51,7 +51,19 @@ if (isset($_POST['logout'])) {
           <a href="">Send</a>
         </li>
         <li>
-          <a href="">Receive</a>
+          <?php
+          // Start the session
+
+
+          // Check if user is logged in
+          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+            // If user is logged in, display My Account link
+            echo '<a href="./receive.php">Receive</a>';
+          } else {
+            // If user is not logged in, display Login link
+            echo '<a href="./receiveOld.php">Receive</a>';
+          }
+          ?>
         </li>
         <li>
           <?php
@@ -86,34 +98,34 @@ if (isset($_POST['logout'])) {
         <p>Scanning and paying by direct transactions to the user.</p>
       </div>
     </a>
-  
-  <div class="card-container">
-    <a href="./sendCrypto/sendNumber.php" class="card">
-      <img src="./account/src/image1.jpg" alt="Image 1">
-      <div class="overlay">
-        <h1>Send To Number</h1>
-        <br><br><br><br><br>
-        <p>Send Crypto money via mobile money transfer service</p>
-      </div>
-    </a>
-    <a href="./sendCrypto/sendAddress.php" class="card">
-      <img src="./account/src/image3.webp" alt="Image 2">
-      <div class="overlay">
-        <h1>Send To Address</h1>
-        <br><br><br><br><br>
-        <p>Securely send money to recipients anywhere anytime</p>
-      </div>
-    </a>
-    <a href="recharge-prepaid.html" class="card">
-      <img src="./account/src/image2.jpg" alt="Image 2">
-      <div class="overlay">
-        <h1>Progress / Working</h1>
-        <br><br><br><br>
-        <p>Recharge Your Prepaid Number with our best professional solutions</p>
-      </div>
-    </a>
-    <!-- Add more cards as needed -->
-  </div>
+
+    <div class="card-container">
+      <a href="./sendCrypto/sendNumber.php" class="card">
+        <img src="./account/src/image1.jpg" alt="Image 1">
+        <div class="overlay">
+          <h1>Send To Number</h1>
+          <br><br><br><br><br>
+          <p>Send Crypto money via mobile money transfer service</p>
+        </div>
+      </a>
+      <a href="./sendCrypto/sendAddress.php" class="card">
+        <img src="./account/src/image3.webp" alt="Image 2">
+        <div class="overlay">
+          <h1>Send To Address</h1>
+          <br><br><br><br><br>
+          <p>Securely send money to recipients anywhere anytime</p>
+        </div>
+      </a>
+      <a href="recharge-prepaid.html" class="card">
+        <img src="./account/src/image2.jpg" alt="Image 2">
+        <div class="overlay">
+          <h1>Progress / Working</h1>
+          <br><br><br><br>
+          <p>Recharge Your Prepaid Number with our best professional solutions</p>
+        </div>
+      </a>
+      <!-- Add more cards as needed -->
+    </div>
 
 
 

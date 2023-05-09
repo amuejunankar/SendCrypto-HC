@@ -84,6 +84,15 @@ $conn->close();
 
 <body class="body">
 
+
+
+  <div class="blur-image">
+    <img src="../src/blur.jpg" style="width:1200px;height:400px" >
+  </div>
+
+
+
+
   <div class="header">
     <div class="navbar">
       <div class="logo">
@@ -101,10 +110,10 @@ $conn->close();
           // Check if user is logged in
           if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             // If user is logged in, display My Account link
-            echo '<a href="../send.php">Send</a>';
+            echo '<a href="./send.php">Send</a>';
           } else {
             // If user is not logged in, display Login link
-            echo '<a href="../sendOld.php">Send</a>';
+            echo '<a href="./sendOld.php">Send</a>';
           }
           ?>
         </li>
@@ -138,7 +147,7 @@ $conn->close();
   <div class="container">
     <div class="card-wrapper">
       <div class="card" id="left-div">
-        
+
         <div class="h1">
           <h1>Scan QR Code</h1>
         </div>
@@ -150,7 +159,7 @@ $conn->close();
 
     <div class="card-wrapper">
       <div class="card" id="right-div">
-        
+
         <h1>Scan QR Code</h1>
         <div id="qrcode2"></div>
         <label id="eth-label" for="eth">Your ETH Address:</label>
