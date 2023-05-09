@@ -40,6 +40,27 @@ if ($result->num_rows > 0) {
 } else {
   echo "No results found";
 }
+
+
+
+// Get eth_address from database
+$email = $_SESSION['email'];
+$sql = "SELECT eth_address FROM accounttable WHERE email='$email'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while ($row = $result->fetch_assoc()) {
+    $eth_address = $row["eth_address"];
+  }
+} else {
+  echo "No results found";
+}
+
+
+
+
+
 $conn->close();
 ?>
 
@@ -117,6 +138,7 @@ $conn->close();
   <div class="container">
     <div class="card-wrapper">
       <div class="card" id="left-div">
+        <br>
         <h1>Scan QR Code</h1>
         <div id="qrcode"></div>
         <label id="phone-label" for="phone">Your mobile number:</label>
@@ -126,8 +148,12 @@ $conn->close();
 
     <div class="card-wrapper">
       <div class="card" id="right-div">
-        <h1>Right Div</h1>
-        <p>This is the right div.</p>
+        <h1>Scan QR Code</h1>
+        <br><br>
+        <div id="qrcode2"></div>
+        <br><br>
+        <label id="eth-label" for="eth">Your ETH Address:</label>
+        <div id="eth" type="tel" id="eth" name="eth"><?php echo $eth_address; ?></div>
       </div>
     </div>
   </div>
@@ -150,8 +176,24 @@ $conn->close();
       });
     }
 
+    function generateQRCode2() {
+      const eth = document.getElementById("eth").textContent;
+      const qrCodeDiv = document.getElementById("qrcode2");
+      qrCodeDiv.innerHTML = "";
+
+      const qrCode = new QRCode(qrCodeDiv, {
+        text: eth,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
     // Call the generateQRCode() function after the page is fully loaded
     window.addEventListener('load', generateQRCode);
+    window.addEventListener('load', generateQRCode2);
   </script>
 
 
