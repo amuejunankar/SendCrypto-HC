@@ -3,6 +3,7 @@ body {
     background-color: #f7f7f7;
     margin: 0;
     padding: 0;
+    height: 100%;
 
 }
 
@@ -121,8 +122,8 @@ body {
     position: absolute;
     margin-top: 17%;
     margin-left: 15%;
-    width: 100%;
-    height: 100%;
+    width: 10%;
+    height: 10%;
     object-fit: fill;
     filter: blur(70px);
     z-index: 0;
