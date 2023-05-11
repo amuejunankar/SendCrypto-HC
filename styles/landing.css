@@ -1,6 +1,10 @@
 .body {
   margin: 0;
   padding: 0;
+  background-image: url("../src/landing.jpg");
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  
 }
 
 
@@ -11,9 +15,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #4f6bff;
   font-family: sans-serif;
-  ;
 }
 
 .landing-page-title {

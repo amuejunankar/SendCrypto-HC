@@ -1,6 +1,9 @@
 .body {
   margin: 0;
   padding: 0;
+  background-image: url("../src/blur2.jpg");
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
 }
 
 .forgot-password-container {
@@ -32,7 +35,7 @@
 
 .login-container {
   background-size: cover;
-  background-color: #4f6bff;
+  /* background-color: #4f6bff; */
   background-repeat: no-repeat;
   height: 100vh;
   display: flex;

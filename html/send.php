@@ -116,7 +116,7 @@ if (isset($_POST['logout'])) {
           <p>Securely send money to recipients anywhere anytime</p>
         </div>
       </a>
-      <a href="recharge-prepaid.html" class="card">
+      <a href="./sendCrypto/recharge.php" class="card">
         <img src="./account/src/image2.jpg" alt="Image 2">
         <div class="overlay">
           <h1>Progress / Working</h1>
