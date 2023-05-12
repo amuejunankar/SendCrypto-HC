@@ -2,18 +2,9 @@
 // Start the session
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+// Import Connection Files
+include '../../database/connection.php';
+$conn = connect();
 
 // Get transaction data from POST request and sanitize it
 $from_address = mysqli_real_escape_string($conn, $_POST["from_address"]);
