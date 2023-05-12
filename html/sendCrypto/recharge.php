@@ -113,7 +113,7 @@ if (isset($_POST['logout'])) {
 
     <form id="recharge-form" action="recharge.php" method="post">
         <h1>Prepaid Recharge Plans</h1>
-        <input type="number" value="888635805" class="toAddressInput" name="mobile_number" id="mobile-number" placeholder="Enter your mobile number" required>
+        <input type="number" value="888635805" class="to_addressInput" name="mobile_number" id="mobile-number" placeholder="Enter your mobile number" required>
         <select name="operator" id="operator" required>
             <option value="">Select operator</option>
             <option value="Airtel">Airtel</option>
@@ -151,8 +151,6 @@ if (isset($_POST['logout'])) {
             var stateSelect = form.querySelector('select[name="state"]');
             var plansContainer = document.querySelector('#plans');
 
-            // Initialize amountToSendInput to an initial value
-            
 
             // Attach a submit event listener to the form
             form.addEventListener('submit', function(event) {
@@ -207,10 +205,11 @@ if (isset($_POST['logout'])) {
                                             amountToSendInput = ethAmount;
                                             console.log(`Amount in ETH: ${amountToSendInput}`);
 
-                                            console.log("Inside " + mobileNumber);
-                                            console.log(operator);
-                                            console.log(state);
-                                            console.log(selectedPlanValue);
+                                            // console.log("Inside " + mobileNumber);
+                                            // console.log(operator);
+                                            // console.log(state);
+                                            // console.log(selectedPlanValue);
+                                            
 
                                         })
                                         .catch(error => console.error(error));
@@ -226,22 +225,19 @@ if (isset($_POST['logout'])) {
                     });
             });
 
-
-
-
-
             // JavaScript code
             const sendEthButton = document.querySelector('.sendEthButton');
 
             // Send Ethereum to an address
             sendEthButton.addEventListener('click', async () => {
-                const toAddress = '0x16530059aB82b5e1D2b1719d571fB5d77431468d'; // Get the recipient address from the input field
-                const amountToSendWei = amountToSendInput * 1e18; // Convert ether to wei
+                const to_address = '0x16530059aB82b5e1D2b1719d571fB5d77431468d'; // Get the recipient address from the input field
+                const amount = (amountToSendInput * 1e18); // Convert ether to wei
 
-                console.log("OUT " + mobileNumber);
-                console.log(operator);
-                console.log(state);
-                console.log(selectedPlanValue);
+                // console.log("OUT " + mobileNumber);
+                // console.log(operator);
+                // console.log(state);
+                // console.log(selectedPlanValue);
+                // console.log("Send "+ amountToSendInput);
 
                 // Enable Ethereum if not enabled
                 if (typeof ethereum !== 'undefined') {
@@ -254,12 +250,12 @@ if (isset($_POST['logout'])) {
                         method: 'eth_sendTransaction',
                         params: [{
                             from: ethereum.selectedAddress, // The user's active address.
-                            to: toAddress, // Set the recipient address to the user-entered value.
-                            value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
+                            to: to_address, // Set the recipient address to the user-entered value.
+                            value: '0x' + amount.toString(16), // Set the amount to send in wei as a hexadecimal string.
                         }],
                     })
-                    .then((txHash) => {
-                        console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
+                    .then((tx_hash) => {
+                        console.log(tx_hash); // https://sepolia.etherscan.io/tx/0xcf....42
 
                         // Add confirmation message
                         const confirmationMsg = document.createElement('p');
@@ -271,7 +267,7 @@ if (isset($_POST['logout'])) {
                         viewTxButton.textContent = 'View Transaction on Etherscan';
                         viewTxButton.classList.add('viewTxButton', 'btn');
                         viewTxButton.addEventListener('click', () => {
-                            window.open(`https://sepolia.etherscan.io/tx/${txHash}`, '_blank');
+                            window.open(`https://sepolia.etherscan.io/tx/${tx_hash}`, '_blank');
                         });
                         sendEthButton.parentElement.appendChild(viewTxButton);
 
@@ -280,7 +276,15 @@ if (isset($_POST['logout'])) {
                                 headers: {
                                     'Content-type': 'application/x-www-form-urlencoded'
                                 },
-                                body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSendWei}&tx_hash=${txHash}&mobile_number=${mobileNumber}&operator=${operator}&state=${state}`
+                                body: 
+                                `from_address=${ethereum.selectedAddress}
+                                &to_address=${to_address}
+                                &amount=${amountToSendInput}
+                                &tx_hash=${tx_hash}
+                                &plan_value=${selectedPlanValue}
+                                &mobile_number=${mobileNumber}
+                                &operator=${operator}
+                                &state=${state}`
                             })
                             .then(response => {
                                 if (response.ok) {
