@@ -205,9 +205,24 @@ if (isset($_POST['logout'])) {
                             var label = document.createElement('label');
                             label.textContent = `${plan.name} - ${plan.price}`;
 
+                            plansContainer.appendChild(radioButton);
+                            plansContainer.appendChild(label);
+
                             // Add an event listener to each radio button to update the amount to send
                             radioButton.addEventListener('change', function(event) {
-                                amountToSendInput = parseFloat(event.target.value);
+                                var inrAmount = parseFloat(event.target.value);
+                                var apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr';
+
+                                // Fetch the current ETH/INR exchange rate from the API
+                                fetch(apiUrl)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        var ethToInr = data.ethereum.inr;
+                                        var ethAmount = inrAmount / ethToInr;
+                                        amountToSendInput = ethAmount;
+                                        console.log(`Amount in ETH: ${amountToSendInput}`);
+                                    })
+                                    .catch(error => console.error(error));
                             });
 
                             plansContainer.appendChild(radioButton);
@@ -221,6 +236,8 @@ if (isset($_POST['logout'])) {
                         plansContainer.innerHTML = 'Error fetching plans. Please try again later.';
                     });
             });
+
+
 
             // JavaScript code
             const sendEthButton = document.querySelector('.sendEthButton');
@@ -250,7 +267,7 @@ if (isset($_POST['logout'])) {
 
                         // Add confirmation message
                         const confirmationMsg = document.createElement('p');
-                        confirmationMsg.textContent = `Transaction sent.`;
+                        confirmationMsg.textContent = `Recharge is being processed.`;
                         sendEthButton.parentElement.appendChild(confirmationMsg);
 
                         // Add button to view transaction on a block explorer
@@ -263,7 +280,7 @@ if (isset($_POST['logout'])) {
                         sendEthButton.parentElement.appendChild(viewTxButton);
 
                         // Insert transaction data into database
-                        fetch('./insert_transaction_add.php', {
+                        fetch('./insert_transaction_add1.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/x-www-form-urlencoded'
