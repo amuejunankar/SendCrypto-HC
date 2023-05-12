@@ -34,39 +34,65 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="../../styles/navbar.css">
 
     <style>
-        .body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        form {
+        .card {
             width: 500px;
             margin: 0 auto;
+            padding: 20px;
+            display: block;
+            border-radius: 10px;
+            margin-top: 6.5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
         }
 
-        input,
-        select {
-            width: 200px;
-            border: 1px solid #ccc;
+        .card h1 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .card input[type="number"],
+        .card select {
+            display: block;
+            width: 90%;
             padding: 10px;
             margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
         }
 
-        input[type="submit"] {
-            background-color: #000;
+        .card input[type="radio"] {
+            display: block;
+            margin: 10px 0;
+        }
+
+        
+
+        .card button[type="submit"],
+        .card .sendEthButton.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: #fff;
-            border: 1px solid #fff;
-            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
             cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: #fff;
-            color: #000;
+        .card button[type="submit"]:hover,
+        .card .sendEthButton.btn:hover {
+            background-color: #3e8e41;
+        }
+
+        .card #plans {
+            margin-top: 20px;
         }
     </style>
-    </style>
+
 </head>
 
 <body class="body">
@@ -111,28 +137,29 @@ if (isset($_POST['logout'])) {
 
     <!-- HTML code -->
 
-    <form id="recharge-form" action="recharge.php" method="post">
-        <h1>Prepaid Recharge Plans</h1>
-        <input type="number" value="888635805" class="to_addressInput" name="mobile_number" id="mobile-number" placeholder="Enter your mobile number" required>
-        <select name="operator" id="operator" required>
-            <option value="">Select operator</option>
-            <option value="Airtel">Airtel</option>
-            <option value="Vodafone">Vodafone</option>
-            <option value="Idea">Idea</option>
-            <option value="Jio">Jio</option>
-        </select>
-        <select name="state" id="state" required>
-            <option value="">Select state</option>
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Karnataka">Karnataka</option>
-            <option value="Tamil Nadu">Tamil Nadu</option>
-            <option value="Delhi">Delhi</option>
-        </select>
-        <div id="plans"></div>
-        <button type="submit">Get Plans</button>
-        <button class="sendEthButton btn">Recharge</button>
-    </form>
-
+    <div class="card">
+        <form id="recharge-form" action="recharge.php" method="post">
+            <h1>Prepaid Recharge Plans</h1>
+            <input type="number" value="888635805" class="to_addressInput" name="mobile_number" id="mobile-number" placeholder="Enter your mobile number" required>
+            <select name="operator" id="operator" required>
+                <option value="">Select operator</option>
+                <option value="Airtel">Airtel</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="Idea">Idea</option>
+                <option value="Jio">Jio</option>
+            </select>
+            <select name="state" id="state" required>
+                <option value="">Select state</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Delhi">Delhi</option>
+            </select>
+            <div id="plans"></div>
+            <button type="submit">Get Plans</button>
+            <button class="sendEthButton btn">Recharge</button>
+        </form>
+    </div>
 
     <script>
         let mobileNumber = null;
@@ -140,7 +167,7 @@ if (isset($_POST['logout'])) {
         let state = null;
         let amountToSendInput = null;
         let selectedPlanValue = null;
-        
+
         // Wait for the document to load before attaching event listeners
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -209,7 +236,7 @@ if (isset($_POST['logout'])) {
                                             // console.log(operator);
                                             // console.log(state);
                                             // console.log(selectedPlanValue);
-                                            
+
 
                                         })
                                         .catch(error => console.error(error));
@@ -276,8 +303,7 @@ if (isset($_POST['logout'])) {
                                 headers: {
                                     'Content-type': 'application/x-www-form-urlencoded'
                                 },
-                                body: 
-                                `from_address=${ethereum.selectedAddress}
+                                body: `from_address=${ethereum.selectedAddress}
                                 &to_address=${to_address}
                                 &amount=${amountToSendInput}
                                 &tx_hash=${tx_hash}
