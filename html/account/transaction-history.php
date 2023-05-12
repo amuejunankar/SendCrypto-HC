@@ -29,7 +29,7 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="../../styles/navbar.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/transaction_history.css">
-    
+
 
 </head>
 
@@ -62,7 +62,7 @@ if (isset($_POST['logout'])) {
                 <li>
                     <?php
                     // Start the session
-                    
+
 
                     // Check if user is logged in
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
@@ -115,6 +115,7 @@ if (isset($_POST['logout'])) {
                     <th>From Address</th>
                     <th>To Address</th>
                     <th>Amount</th>
+                    <th>Amount ETH</th>
                     <th>Transaction Hash</th>
                 </tr>
 
@@ -122,19 +123,9 @@ if (isset($_POST['logout'])) {
                 // Retrieve email from session
                 $email = $_SESSION["email"];
 
-                // Connection Details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "account";
-
-                // Create connection
-                $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-                // Check connection
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
+                // Import Connection Files
+                include '../../database/connection.php';
+                $conn = connect();
 
                 // Prepare SQL statement and handle any errors
                 $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ?");
@@ -154,7 +145,8 @@ if (isset($_POST['logout'])) {
                         echo "<tr>";
                         echo "<td>" . $row["from_address"] . "</td>";
                         echo "<td>" . $row["to_address"] . "</td>";
-                        echo "<td>" . $row["amount"] . "</td>";
+                        echo "<td>" . $row["amountRupee"] ." INR" ."</td>";
+                        echo "<td>" . $row["amount"] ." ETH" ."</td>";
                         echo "<td><a href='https://sepolia.etherscan.io/tx/" . $row["tx_hash"] . "' target='_blank'>" . $row["tx_hash"] . "</a></td>";
                         echo "</tr>";
                     }
