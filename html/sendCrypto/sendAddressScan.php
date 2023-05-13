@@ -23,13 +23,13 @@ if (isset($_POST['logout'])) {
 // scanned Result code till toAddress
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle form submission
-    $toAddress = $_POST['toAddress'];
-    $amount = $_POST['amount'];
-    // Your code to transfer the ETH to $toAddress with $amount
+  // Handle form submission
+  $toAddress = $_POST['toAddress'];
+  $amount = $_POST['amount'];
+  // Your code to transfer the ETH to $toAddress with $amount
 } else {
-    // Display form
-    $toAddress = isset($_GET['toAddress']) ? $_GET['toAddress'] : '';
+  // Display form
+  $toAddress = isset($_GET['toAddress']) ? $_GET['toAddress'] : '';
 }
 
 
@@ -164,11 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" class="toAddressInput" name="toAddress" placeholder="Enter recipient address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>">
     <input type="text" class="amountToSendInput" placeholder="Enter amount (in Ether)" min="0.0001">
     <br>
-    <button class="sendEthButton btn">Send ETH</button>
+    <button class="sendEthButton">Send ETH</button>
   </div>
 
   <script>
-    // JavaScript code
     const sendEthButton = document.querySelector('.sendEthButton');
     const toAddressInput = document.querySelector('.toAddressInput');
     const amountToSendInput = document.querySelector('.amountToSendInput');
@@ -179,10 +178,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       const amountToSend = amountToSendInput.value; // Get the amount to send from the input field
       const amountToSendWei = amountToSend * 1e18; // Convert ether to wei
 
+      let amountToSendInr = 0;
+
+      // Get the ETH/INR exchange rate
+      await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr')
+        .then(response => response.json())
+        .then(data => {
+          const ethInrRate = data.ethereum.inr;
+          // Convert ETH to INR
+          amountToSendInr = amountToSend * ethInrRate;
+        })
+        .catch(error => console.error(error));
+
+
       // Enable Ethereum if not enabled
       if (typeof ethereum !== 'undefined') {
         await ethereum.enable();
       }
+
 
       // Send transaction
       ethereum
@@ -196,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         })
         .then((txHash) => {
           console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
-
+          console.log(`inside ethreum INR: ${amountToSendInr}`);
           // Add confirmation message
           const confirmationMsg = document.createElement('p');
           confirmationMsg.textContent = `Transaction sent.`;
@@ -217,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
               },
-              body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSend}&tx_hash=${txHash}`
+              body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSend}&amountRupee=${amountToSendInr}&tx_hash=${txHash}`
             })
             .then(response => {
               if (response.ok) {
