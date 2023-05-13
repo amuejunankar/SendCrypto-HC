@@ -4,6 +4,7 @@ session_start();
 
 // Import Connection Files
 include '../../database/connection.php';
+include '../../database/sendMail.php';
 $conn = connect();
 
 // Get transaction data from POST request and sanitize it
@@ -31,6 +32,9 @@ if ($stmt->execute()) {
 } else {
   echo "Error inserting transaction data: " . $stmt->error;
 }
+
+// Send Mail To User About Transaction
+
 
 // Close the prepared statement and database connection
 $stmt->close();

@@ -32,9 +32,16 @@ function sendMail($email, $otp)
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
+        // Set email subject and body
         $mail->Subject = 'Verification OTP from SendCrypto';
-        $mail->Body    = "OTP code > $otp";
+        $mail->Body = "<div style='background-color: #1f1f1f; color: #f9f9f9; font-family: sans-serif; border-radius: 10px; padding: 20px;'>\n";
+        $mail->Body .= "<h2 style='font-size: 24px; font-weight: bold; margin-top: 0;'>Verification OTP from SendCrypto</h2>\n";
+        $mail->Body .= "<p style='font-size: 18px;'>Your verification OTP code is:</p>\n";
+        $mail->Body .= "<div style='font-size: 32px; font-weight: bold; background-color: #333; padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 20px;'>$otp</div>\n";
+        $mail->Body .= "<p style='font-size: 18px;'>Please enter this code to verify your account.</p>\n";
+        $mail->Body .= "</div>";
 
+        // Send the email
         $mail->send();
         return true;
     } catch (Exception $e) {
@@ -43,19 +50,8 @@ function sendMail($email, $otp)
 }
 
 
-// Replace database credentials with your own
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include './connection.php';
+$conn = connect();
 
 // Retrieve form data
 $name = mysqli_real_escape_string($conn, $_POST['name']);

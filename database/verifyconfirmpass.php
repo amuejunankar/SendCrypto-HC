@@ -37,7 +37,7 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
         $conn->close();
         echo "<script>
                 alert('Your password has been changed successfully. Please click OK to proceed to the login page.!!'); 
-                window.location='../html/login.html';
+                window.location='../html/login.php';
             </script>";
         exit;
     } else {
