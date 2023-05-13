@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+.main-container {
+  display: block;
+}
+
 .body {
   background-color: #4f6bff;
 }

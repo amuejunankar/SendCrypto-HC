@@ -37,73 +37,72 @@ if (isset($_POST['logout'])) {
 </head>
 
 <body class="body">
+  <div class="main-container">
 
-  <div class="header">
-    <div class="navbar">
-      <div class="logo">
-        <a href="../index.php">Send Crypto</a>
+    <div class="header">
+      <div class="navbar">
+        <div class="logo">
+          <a href="../index.php">Send Crypto</a>
+        </div>
+        <ul class="navLinks">
+          <li>
+            <a href="../index.php">Home</a>
+          </li>
+          <li>
+            <a href="">Send</a>
+          </li>
+          <li>
+            <?php
+            // Start the session
+
+
+            // Check if user is logged in
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+              // If user is logged in, display My Account link
+              echo '<a href="./receive.php">Receive</a>';
+            } else {
+              // If user is not logged in, display Login link
+              echo '<a href="./receiveOld.php">Receive</a>';
+            }
+            ?>
+          </li>
+          <li>
+            <?php
+            // Start the session
+
+            // Check if user is logged in
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+              // If user is logged in, display My Account link
+              echo '<a href="./account/account.php">My Account</a>';
+            } else {
+              // If user is not logged in, display Login link
+              echo '<a href="../html/login.html">Login</a>';
+            }
+            ?>
+          </li>
+
+        </ul>
+
+
       </div>
-      <ul class="navLinks">
-        <li>
-          <a href="../index.php">Home</a>
-        </li>
-        <li>
-          <a href="">Send</a>
-        </li>
-        <li>
-          <?php
-          // Start the session
-
-
-          // Check if user is logged in
-          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            // If user is logged in, display My Account link
-            echo '<a href="./receive.php">Receive</a>';
-          } else {
-            // If user is not logged in, display Login link
-            echo '<a href="./receiveOld.php">Receive</a>';
-          }
-          ?>
-        </li>
-        <li>
-          <?php
-          // Start the session
-
-          // Check if user is logged in
-          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            // If user is logged in, display My Account link
-            echo '<a href="./account/account.php">My Account</a>';
-          } else {
-            // If user is not logged in, display Login link
-            echo '<a href="../html/login.html">Login</a>';
-          }
-          ?>
-        </li>
-
-      </ul>
-
-
     </div>
-  </div>
-  <br></br><br></br>
+    <br></br><br></br>
 
 
-
-  <div class="card-container">
-    <a href="./qrcode.php" class="card">
-      <img src="./account/src/image4.png" alt="Image 1">
-      <div class="overlay">
-        <h1>Scan QR Code</h1>
-        <br><br><br><br><br>
-        <p>Scanning and paying by direct transactions to the user.</p>
-      </div>
-    </a>
 
     <div class="card-container">
+      <a href="./qrcode.php" class="card">
+        <img src="./account/src/image4.png" alt="Image 1">
+        <div class="overlay">
+          <h1>Scan QR Code</h1>
+          <br><br><br><br><br>
+          <p>Scanning and paying by direct transactions to the user.</p>
+        </div>
+      </a>
       <a href="./sendCrypto/sendNumber.php" class="card">
         <img src="./account/src/image1.jpg" alt="Image 1">
         <div class="overlay">
-          <h1>Send To Number</h1>
+          <h1>Pay To Contacts</h1>
           <br><br><br><br><br>
           <p>Send Crypto money via mobile money transfer service</p>
         </div>
@@ -111,7 +110,7 @@ if (isset($_POST['logout'])) {
       <a href="./sendCrypto/sendAddress.php" class="card">
         <img src="./account/src/image3.webp" alt="Image 2">
         <div class="overlay">
-          <h1>Send To Address</h1>
+          <h1>Pay To Address</h1>
           <br><br><br><br><br>
           <p>Securely send money to recipients anywhere anytime</p>
         </div>
@@ -119,14 +118,14 @@ if (isset($_POST['logout'])) {
       <a href="./sendCrypto/recharge.php" class="card">
         <img src="./account/src/image2.jpg" alt="Image 2">
         <div class="overlay">
-          <h1>Progress / Working</h1>
+          <h1>Prepaid Recharge</h1>
           <br><br><br><br>
           <p>Recharge Your Prepaid Number with our best professional solutions</p>
         </div>
       </a>
       <!-- Add more cards as needed -->
     </div>
-
+  </div>
 
 
 
