@@ -193,7 +193,6 @@ if (isset($_POST['logout'])) {
         })
         .then((txHash) => {
           console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
-          console.log(`inside ethreum INR: ${amountToSendInr}`);
           // Add confirmation message
           const confirmationMsg = document.createElement('p');
           confirmationMsg.textContent = `Transaction sent.`;

@@ -174,6 +174,20 @@ if (isset($_POST['logout'])) {
             const amountToSend = amountToSendInput.value; // Get the amount to send from the input field
             const amountToSendWei = amountToSend * 1e18; // Convert ether to wei
 
+            let amountToSendInr = 0;
+
+            // Get the ETH/INR exchange rate
+            await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr')
+                .then(response => response.json())
+                .then(data => {
+                    const ethInrRate = data.ethereum.inr;
+                    // Convert ETH to INR
+                    amountToSendInr = amountToSend * ethInrRate;
+                })
+                .catch(error => console.error(error));
+
+
+
             // Fetch eth_address from SQL database based on mobile number
             fetch('fetch_eth_address.php', {
                     method: 'POST',
@@ -202,13 +216,51 @@ if (isset($_POST['logout'])) {
                                     value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
                                 }],
                             })
-                            .then((txHash) => console.log(txHash)) // https://sepolia.etherscan.io/tx/0xcf....42
-                            .catch((error) => console.error(error));
+                            .then((txHash) => {
+                                console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
+                                console.log(`inside ethreum INR: ${amountToSendInr}`);
+                                // Add confirmation message
+                                const confirmationMsg = document.createElement('p');
+                                confirmationMsg.textContent = `Transaction sent.`;
+                                sendEthButton.parentElement.appendChild(confirmationMsg);
+
+                                // Add button to view transaction on a block explorer
+                                const viewTxButton = document.createElement('button');
+                                viewTxButton.textContent = 'View Transaction on Etherscan';
+                                viewTxButton.classList.add('viewTxButton', 'btn');
+                                viewTxButton.addEventListener('click', () => {
+                                    window.open(`https://sepolia.etherscan.io/tx/${txHash}`, '_blank');
+                                });
+                                sendEthButton.parentElement.appendChild(viewTxButton);
+
+                                // Insert transaction data into database
+                                fetch('./insert_transaction_add.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: `from_address=${ethereum.selectedAddress}&to_address=${data.eth_address}&amount=${amountToSend}&amountRupee=${amountToSendInr}&tx_hash=${txHash}`
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            console.log('Transaction data inserted successfully!');
+                                        } else {
+                                            throw new Error('Error inserting transaction data');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                        // Display error message to user
+                                        const errorMsg = document.createElement('p');
+                                        errorMsg.textContent = 'Transaction data could not be inserted into the database.';
+                                        sendEthButton.parentElement.appendChild(errorMsg);
+                                    });
+                            })
+                            .catch(error => console.error(error));
                     } else {
-                        console.error('Failed to fetch eth_address for the provided mobile number');
+                        alert("Either Account don't exist < OR > The recipient's Mobile Transaction is Disabled. To Enable it, please go to the transaction settings and enable the wallet.");
                     }
-                })
-                .catch(error => console.error(error));
+                });
         });
     </script>
 

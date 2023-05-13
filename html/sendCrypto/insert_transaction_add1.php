@@ -30,7 +30,7 @@ $state = $_POST['state'];
 
 
 // Calculate the plan price based on the selected plan in the HTML form
-$from_address ='Recharge ';
+$from_address ='Prepaid Recharge ';
 $to_address =$mobileNumber .' > '. $operator ;
 
 // Get user's email from session and sanitize it
