@@ -153,15 +153,13 @@ if (isset($_POST['logout'])) {
 
 
 
-
-    <!-- HTML code -->
     <!-- HTML code -->
     <div class="card">
         <h1>Send To Number</h1>
         <input type="number" class="toAddressInput" placeholder="Enter recipient Mobile Number">
         <input type="number" class="amountToSendInput" placeholder="Enter amount (in Ether)" min="0.0001">
         <br>
-        <button class="sendEthButton btn">Send ETH</button>
+        <button class="sendEthButton">Send ETH</button>
     </div>
 
     <script>
