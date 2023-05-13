@@ -68,8 +68,6 @@ if (isset($_POST['logout'])) {
           </li>
           <li>
             <?php
-            // Start the session
-
             // Check if user is logged in
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
               // If user is logged in, display My Account link
@@ -80,10 +78,7 @@ if (isset($_POST['logout'])) {
             }
             ?>
           </li>
-
         </ul>
-
-
       </div>
     </div>
     <br></br><br></br>
