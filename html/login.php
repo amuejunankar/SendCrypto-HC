@@ -29,19 +29,30 @@
 
           // Check if user is logged in
           if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-              // If user is logged in, display My Account link
-              echo '<a href="./send.php">Send</a>';
+            // If user is logged in, display My Account link
+            echo '<a href="./send.php">Send</a>';
           } else {
-              // If user is not logged in, display Login link
-              echo '<a href="./sendOld.php">Send</a>';
+            // If user is not logged in, display Login link
+            echo '<a href="./sendOld.php">Send</a>';
           }
           ?>
-      </li>
+        </li>
         <li>
           <a href="">Receive</a>
         </li>
         <li>
-          <a href="">My Account</a>
+          <?php
+          // Start the session
+
+          // Check if user is logged in
+          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+            // If user is logged in, display My Account link
+            echo '<a href="./account/account.php">My Account</a>';
+          } else {
+            // If user is not logged in, display Login link
+            echo '<a href="">Login</a>';
+          }
+          ?>
         </li>
       </ul>
     </div>
@@ -50,7 +61,7 @@
   <div class="login-container">
     <div class="login-form">
       <h1>Login</h1>
-      <form method="POST" action="../database/login.php" >
+      <form method="POST" action="../database/login.php">
         <label for="email">Email:</label>
         <input placeholder="Enter your email" type="email" id="email" name="email" required />
         <label for="password">Password:</label>

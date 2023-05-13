@@ -19,7 +19,7 @@ $mobileNumber = $_POST['mobile_number'];
 $operator = $_POST['operator'];
 $state = $_POST['state'];
 
-
+$amountRupee = number_format(floatval($amountRupee), 2);
 
 // $from_address = "ABCC";
 // $to_address = "Me5646846864";
@@ -41,7 +41,7 @@ echo $email;
 $transaction_type = "recharge";
 
 // Prepare SQL statement and handle any errors
-$stmt = $conn->prepare("INSERT INTO transactions (from_address, to_address, amount, tx_hash, amountRupee  , email, transaction_type) VALUES (?, ?, ?, ?, ?, ?,?)");
+$stmt = $conn->prepare("INSERT INTO transactions (from_address, to_address, amount, tx_hash, amountRupee, email, transaction_type) VALUES (?, ?, ?, ?, ?, ?,?)");
 if (!$stmt) {
     die("Error preparing statement: " . mysqli_error($conn));
 }
@@ -73,6 +73,8 @@ $row = $result->fetch_assoc();
 
 // Get value of "created_at" column from result
 $date = $row['created_at'];
+
+
 
 // Send email after recharge
 $msg = "Your recharge of Rs. $amountRupee to $mobileNumber is successful. Transaction date: $date.";
