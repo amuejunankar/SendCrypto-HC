@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 65vh;
+  height: 70vh;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -19,9 +19,10 @@
 
 .card {
   position: relative;
-  margin: 10px;
   width: 200px;
-  height: 300px;
+  height: 250px;
+  /* Adjust the height as needed */
+  margin: 10px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -115,4 +116,106 @@
 .card:hover::before {
   opacity: 0;
   /* Update opacity to 0 on hover */
+}
+
+/* TWO Divs Left : Right */
+
+.card-left,
+.card-right {
+  width: 80%;
+  /* Adjust the width as needed */
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  /* Adjust the height as needed */
+  margin-left: 10%;
+}
+
+.card-right {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+  margin-right: 10%;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+
+  .card-left,
+  .card-right {
+    width: 100%;
+  }
+
+  .card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-right .card {
+    width: calc(50% - 20px);
+  }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.left-card-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+
+
+.left-card-items h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.left-card-items p {
+  font-size: 18px;
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .left-card-items {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-card-items h1 {
+    font-size: 20px;
+  }
+
+  .left-card-items p {
+    font-size: 16px;
+  }
 }

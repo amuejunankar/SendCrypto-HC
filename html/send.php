@@ -84,42 +84,71 @@ if (isset($_POST['logout'])) {
     <br></br><br></br>
 
 
+    <div class="container">
 
-    <div class="card-container">
-      <a href="./qrcode.php" class="card">
-        <img src="./account/src/image4.png" alt="Image 1">
-        <div class="overlay">
-          <h1>Scan QR Code</h1>
-          <br><br><br><br><br>
-          <p>Scanning and paying by direct transactions to the user.</p>
+
+      <!-- Leftt Cards -->
+      <div class="card-left" style="background-color: lightblue;">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+        <div class="left-card-items">
+          <h1>Crypto Transactions Made Effortless</h1>
+          <p>Simplify your crypto transactions with our platform's capabilities. Scan QR codes for easy payments, effortlessly send crypto funds, and confidently transfer worldwide.</p>
         </div>
-      </a>
-      <a href="./sendCrypto/sendNumber.php" class="card">
-        <img src="./account/src/image1.jpg" alt="Image 1">
-        <div class="overlay">
-          <h1>Pay To Contacts</h1>
-          <br><br><br><br><br>
-          <p>Send Crypto money via mobile money transfer service</p>
+        <div class="left-card-items">
+          <h1>Balance</h1>
+          <p>0.6 ETH and 15,748 INR</p>
         </div>
-      </a>
-      <a href="./sendCrypto/sendAddress.php" class="card">
-        <img src="./account/src/image3.webp" alt="Image 2">
-        <div class="overlay">
-          <h1>Pay To Address</h1>
-          <br><br><br><br><br>
-          <p>Securely send money to recipients anywhere anytime</p>
+
+
+      </div>
+
+
+      <!-- RIght CARDS -->
+      <div class="card-right" style="background-color: lightgreen;">
+        <div class="card-container">
+          <a href="./qrcode.php" class="card">
+            <img src="./account/src/image4.png" alt="Image 1">
+            <div class="overlay">
+              <h1>Scan QR Code</h1>
+              <br><br><br>
+              <p>Scanning and paying by direct transactions to the user.</p>
+            </div>
+          </a>
+          <a href="./sendCrypto/sendNumber.php" class="card">
+            <img src="./account/src/image1.jpg" alt="Image 1">
+            <div class="overlay">
+              <h1>Pay To Contacts</h1>
+              <br><br><br>
+              <p>Send Crypto money via mobile money transfer service</p>
+            </div>
+          </a>
+
+          <a href="./sendCrypto/sendAddress.php" class="card">
+            <img src="./account/src/image3.webp" alt="Image 2">
+            <div class="overlay">
+              <h1>Pay To Address</h1>
+              <br><br><br>
+              <p>Send money to recipients anywhere anytime</p>
+            </div>
+          </a>
+          <a href="./sendCrypto/recharge.php" class="card">
+            <img src="./account/src/image2.jpg" alt="Image 2">
+            <div class="overlay">
+              <h1>Prepaid Recharge</h1>
+              <br><br>
+              <p>Recharge Your Prepaid Number with our best professional solutions</p>
+            </div>
+          </a>
+          <!-- Add more cards as needed -->
         </div>
-      </a>
-      <a href="./sendCrypto/recharge.php" class="card">
-        <img src="./account/src/image2.jpg" alt="Image 2">
-        <div class="overlay">
-          <h1>Prepaid Recharge</h1>
-          <br><br><br><br>
-          <p>Recharge Your Prepaid Number with our best professional solutions</p>
-        </div>
-      </a>
-      <!-- Add more cards as needed -->
+      </div>
     </div>
+
+
+
   </div>
 
 
