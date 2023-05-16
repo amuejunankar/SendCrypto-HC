@@ -117,6 +117,7 @@ if (isset($_POST['logout'])) {
               <p>Scanning and paying by direct transactions to the user.</p>
             </div>
           </a>
+
           <a href="./sendCrypto/sendNumber.php" class="card">
             <img src="./account/src/image1.jpg" alt="Image 1">
             <div class="overlay">
@@ -134,6 +135,7 @@ if (isset($_POST['logout'])) {
               <p>Send money to recipients anywhere anytime</p>
             </div>
           </a>
+
           <a href="./sendCrypto/recharge.php" class="card">
             <img src="./account/src/image2.jpg" alt="Image 2">
             <div class="overlay">
@@ -143,12 +145,13 @@ if (isset($_POST['logout'])) {
             </div>
           </a>
           <!-- Add more cards as needed -->
+          
         </div>
       </div>
+
+
+
     </div>
-
-
-
   </div>
 
 
