@@ -144,6 +144,8 @@ mysqli_close($conn);
         </div>
     </div>
     <br><br><br><br><br>
+
+    
     <div class="sidebar">
         <ul>
             <li><a href="">Profile Settings</a></li>
