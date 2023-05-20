@@ -36,6 +36,52 @@ if (isset($_POST['logout'])) {
 
 </head>
 
+<style>
+  .left-card-items {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .left-card-items h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #333333;
+  }
+
+  .left-card-items hr {
+    border: none;
+    border-top: 1px solid #dddddd;
+    margin: 12px 0;
+  }
+
+  .left-card-items h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #555555;
+  }
+
+  .left-card-items h2#balance {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  .left-card-items h2#balance-inr {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff8800;
+  }
+
+  /* Add some spacing between the card and other elements */
+  body {
+    padding: 20px;
+  }
+</style>
+
 <body class="body">
   <div class="main-container">
 
@@ -92,15 +138,20 @@ if (isset($_POST['logout'])) {
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
 
         <div class="left-card-items">
           <h1>Crypto Transactions Made Effortless</h1>
           <p>Simplify your crypto transactions with our platform's capabilities. Scan QR codes for easy payments, effortlessly send crypto funds, and confidently transfer worldwide.</p>
         </div>
+        <br>
         <div class="left-card-items">
           <h1>Balance</h1>
-          <p>0.6 ETH and 15,748 INR</p>
+          <hr>
+          <h2 id="balance"></h2>
+          <h2 id="balance-inr"></h2>
         </div>
+
 
 
       </div>
@@ -145,7 +196,7 @@ if (isset($_POST['logout'])) {
             </div>
           </a>
           <!-- Add more cards as needed -->
-          
+
         </div>
       </div>
 
@@ -156,6 +207,58 @@ if (isset($_POST['logout'])) {
 
 
 
+  <script>
+    // Check if MetaMask is installed and enabled
+    if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+      // Request access to accounts
+      window.ethereum.request({
+          method: 'eth_requestAccounts'
+        })
+        .then(function(accounts) {
+          // Get the selected account
+          var address = accounts[0];
+
+          // Create a Web3 instance using MetaMask provider
+          var web3 = new Web3(window.ethereum);
+
+          // Get the balance of the address
+          web3.eth.getBalance(address, function(error, balance) {
+            if (error) {
+              console.error(error);
+            } else {
+              // Convert balance from Wei to Ether and round to 3 decimal places
+              var balanceInEther = web3.utils.fromWei(balance, 'ether');
+              balanceInEther = parseFloat(balanceInEther).toFixed(3);
+
+              // Update the balance in ETH in the HTML
+              document.getElementById('balance').textContent = balanceInEther + ' ETH';
+
+              // Fetch the conversion rate from ETH to INR
+              fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr')
+                .then(function(response) {
+                  return response.json();
+                })
+                .then(function(data) {
+                  // Calculate the balance in INR
+                  var conversionRate = data.ethereum.inr;
+                  var balanceInINR = (balanceInEther * conversionRate).toFixed(2);
+
+                  // Update the balance in INR in the HTML
+                  document.getElementById('balance-inr').textContent = balanceInINR + ' INR';
+                })
+                .catch(function(error) {
+                  console.error(error);
+                });
+            }
+          });
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    } else {
+      console.error('MetaMask is not installed or enabled.');
+    }
+  </script>
 
 </body>
 

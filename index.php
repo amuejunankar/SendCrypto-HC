@@ -14,62 +14,69 @@
 
 <body class="body">
 
+
+
+
+
+
+
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="">Send Crypto</a>
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    session_start();
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="./html/send.php">Send</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="./html/sendOld.php">Send</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    
+            <div class="nav-links">
+                <a href="" target="">Home</a>
+                <a href="<?php
+                            // Start the session
+                            session_start();
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="./html/receive.php">Receive</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="./html/receiveOld.php">Receive</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    
-
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="./html/account/account.php">My Account</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="./html/login.php">Login</a>';
-                    }
-                    ?>
-                </li>
-            </ul>
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo './html/send.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo './html/sendOld.php';
+                            }
+                            ?>" target="">Send</a>
+                <a href="<?php
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo './html/receive.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo './html/receiveOld.php';
+                            }
+                            ?>" target="">Receive</a>
+                <a href="<?php
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo './html/account/account.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo './html/login.php';
+                            }
+                            ?>" target="">Login</a>
+            </div>
         </div>
+
+
+
     </div>
 
     <div class="landing-page-container">
