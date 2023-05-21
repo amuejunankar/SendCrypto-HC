@@ -79,21 +79,22 @@ $conn->close();
   <link rel="stylesheet" href="../styles/navbar.css">
   <link rel="stylesheet" href="../styles/receive.css">
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 
 </head>
 
 <body class="body">
 
 
-
   <div class="blur-image">
-    <img src="../src/blur2.jpg" style="width:1200px;height:400px" >
+    <img src="../src/blur2.jpg" style="width:1200px;height:400px">
   </div>
 
 
 
 
   <div class="header">
+    
     <div class="navbar">
       <div class="logo">
         <a href="../index.php">Send Crypto</a>
@@ -169,7 +170,15 @@ $conn->close();
   </div>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <!-- button -->
+  <div class="center">
+    <form action="generate-pdf.php" method="post">
+      <input type="submit" name="download" value="Download QR Card" class="btn">
+    </form>
+  </div>
+
+
+
   <script>
     function generateQRCode() {
       const phoneNumber = document.getElementById("phone").textContent;
@@ -178,8 +187,8 @@ $conn->close();
 
       const qrCode = new QRCode(qrCodeDiv, {
         text: phoneNumber,
-        width: 256,
-        height: 256,
+        width: 170,
+        height: 170,
         colorDark: "#000000",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
@@ -193,8 +202,8 @@ $conn->close();
 
       const qrCode = new QRCode(qrCodeDiv, {
         text: eth,
-        width: 256,
-        height: 256,
+        width: 170,
+        height: 170,
         colorDark: "#000000",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
