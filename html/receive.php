@@ -64,8 +64,6 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<br><br><br><br>
-
 
 
 <!DOCTYPE html>
@@ -92,10 +90,7 @@ $conn->close();
 
 
 
-
   <div class="header">
-
-
 
     <div class="nav">
       <input type="checkbox" id="nav-check">
@@ -150,7 +145,7 @@ $conn->close();
 
 
   </div>
-  <br></br><br></br>
+  <br></br><br><br>
 
 
   <!-- Generate and show QR code of user. get value from Database -->
@@ -159,7 +154,7 @@ $conn->close();
       <div class="card" id="left-div">
 
         <div class="h1">
-          <h1>Scan QR Code</h1>
+          <h2>Scan QR Code</h2>
         </div>
         <div id="qrcode"></div>
         <label id="phone-label" for="phone">Your mobile number:</label>
@@ -170,7 +165,7 @@ $conn->close();
     <div class="card-wrapper">
       <div class="card" id="right-div">
 
-        <h1>Scan QR Code</h1>
+        <h2>Scan QR Code</h2>
         <div id="qrcode2"></div>
         <label id="eth-label" for="eth">Your ETH Address:</label>
         <div id="eth" type="tel" id="eth" name="eth"><?php echo $eth_address; ?></div>
@@ -178,7 +173,7 @@ $conn->close();
     </div>
   </div>
 
-
+<br><br><br>
   <!-- button -->
   <div class="center">
     <form action="generate-pdf.php" method="post">
