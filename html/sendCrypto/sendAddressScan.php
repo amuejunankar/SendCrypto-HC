@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .toAddressInput,
     .amountToSendInput {
       display: block;
-      width: 75%;
+      width: 55%;
       margin: 0 auto;
       margin-top: 10px;
       padding: 10px;
@@ -112,44 +112,231 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       outline: none;
       border-color: #007bff;
     }
+
+    .toAddressInput::-webkit-outer-spin-button,
+    .toAddressInput::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .toAddressInput {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .body {
+      background-color: #f2f5f8;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #4f6bff;
+      font-size: 30px;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .toAddressInput {
+      font-size: 17px;
+      /* Set the desired font size for the first input */
+    }
+
+    #inr_amount {
+      font-size: 24px;
+      /* Set the desired font size for the second input */
+    }
+
+    .input-group input {
+      padding: 12px;
+      border-radius: 14px;
+      border: none;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding-left: 35px;
+    }
+
+    .input-group1 input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding-left: 35px;
+    }
+
+    .input-group input {
+      width: 100%;
+    }
+
+    .input-group1 input {
+      width: 80%;
+    }
+
+    .input-group::before {
+      content: "\20B9";
+      position: absolute;
+      left: 10px;
+      top: 79%;
+
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #6c757d;
+      background-color: honeydew;
+    }
+
+    .input-group1::before {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #6c757d;
+      \background-color: honeydew;
+    }
+
+    .input-group-addon {
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      color: #6c757d;
+      background-color: honeydew;
+      border-radius: 10px;
+    }
+
+    .eth-rate {
+      font-size: 14px;
+      color: #6c757d;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
+      /* Adjust the value according to your desired gap size */
+
+    }
+
+    .btn-group .btn {
+      flex-grow: 1;
+      padding: 12px;
+      color: #fff;
+      background-color: #a6bdc1;
+
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-group .btn:hover {
+      background-color: #4058c7;
+    }
+
+    .eth-rate {
+      font-size: 14px;
+      color: #6c757d;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .sendEthButton {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      color: #fff;
+      background-color: #4f6bff;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .sendEthButton:hover {
+      background-color: #4058c7;
+    }
   </style>
 </head>
 
 <body class="body">
 
   <div class="header">
-    <div class="navbar">
-      <div class="logo">
-        <a href="../../index.php">Send Crypto</a>
+    <div class="nav">
+      <input type="checkbox" id="nav-check">
+      <div class="nav-header">
+        <div class="nav-title">
+          SendCrypto
+        </div>
       </div>
-      <ul class="navLinks">
-        <li>
-          <a href="../../index.php">Home</a>
-        </li>
-        <li>
-          <a href="../send.php">Send</a>
-        </li>
-        <li>
-          <a href="">Receive</a>
-        </li>
-        <li>
-          <?php
-          // Start the session
-
-          // Check if user is logged in
-          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            // If user is logged in, display My Account link
-            echo '<a href=".././account/account.php">My Account</a>';
-          } else {
-            // If user is not logged in, display Login link
-            echo '<a href="../../html/login.html">Login</a>';
-          }
-          ?>
-        </li>
-
-      </ul>
-
-
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+      <div class="nav-links">
+        <a href="../../index.php" target="">Home</a>
+        <a href="<?php
+                  // Check if user is logged in
+                  if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, set the appropriate URL
+                    echo '../send.php';
+                  } else {
+                    // If user is not logged in, set the appropriate URL
+                    echo '../sendOld.php';
+                  }
+                  ?>" target="">Send</a>
+        <a href="<?php
+                  // Check if user is logged in
+                  if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, set the appropriate URL
+                    echo '../receive.php';
+                  } else {
+                    // If user is not logged in, set the appropriate URL
+                    echo '../receiveOld.php';
+                  }
+                  ?>" target="">Receive</a>
+        <a href="<?php
+                  // Check if user is logged in
+                  if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, set the appropriate URL
+                    echo '../account/account.php';
+                  } else {
+                    // If user is not logged in, set the appropriate URL
+                    echo './html/login.php';
+                  }
+                  ?>" target="">My Account</a>
+      </div>
     </div>
   </div>
   <br></br><br></br>
@@ -157,98 +344,156 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-  <!-- HTML code -->
+  <!-- HTML code
   <div class="card">
-    <h1>Send To Address</h1>
-    <!-- <input type="text" class="toAddressInput" name="toAddress" placeholder="Enter recipient address"> -->
-    <input type="text" class="toAddressInput" name="toAddress" placeholder="Enter recipient address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>">
+    <h1>Send To Address</h1> -->
+  <!-- <input type="text" class="toAddressInput" name="toAddress" placeholder="Enter recipient address"> -->
+  <!-- <input type="text" class="toAddressInput" name="toAddress" placeholder="Enter recipient address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>">
     <input type="text" class="amountToSendInput" placeholder="Enter amount (in Ether)" min="0.0001">
     <br>
     <button class="sendEthButton">Send ETH</button>
+  </div> -->
+
+
+  <div class="container">
+    <div class="header">
+      <h1>Pay To Address</h1>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input type="text" class="toAddressInput" placeholder="Enter ETH Address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>>
+        <br>
+        <input type=" number" id="inr_amount" class="form-control" placeholder="Enter amount in INR" min="0" step="1" required>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn" data-amount="50">+50</button>
+        <button type="button" class="btn" data-amount="100">+100</button>
+        <button type="button" class="btn" data-amount="200">+200</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group1">
+        <span class="input-group-addon">ETH</span>
+        <input type="text" id="eth_amount" class="form-control" placeholder="ETH calculated here" disabled>
+      </div>
+      <div class="eth-rate">1 ETH = ? INR</div>
+    </div>
+    <button class="sendEthButton">Pay Now</button>
   </div>
 
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <script>
-    const sendEthButton = document.querySelector('.sendEthButton');
-    const toAddressInput = document.querySelector('.toAddressInput');
-    const amountToSendInput = document.querySelector('.amountToSendInput');
+    let ethAmountglobal = '';
+    $(document).ready(function() {
+      // Get the current ETH to INR exchange rate from the CoinGecko API
+      $.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr', function(data) {
+        let ethRate = data.ethereum.inr;
+        $('.eth-rate').text(`1 ETH = ${ethRate} INR`);
 
-    // Send Ethereum to an address
-    sendEthButton.addEventListener('click', async () => {
-      const toAddress = toAddressInput.value; // Get the recipient address from the input field
-      const amountToSend = amountToSendInput.value; // Get the amount to send from the input field
-      const amountToSendWei = amountToSend * 1e18; // Convert ether to wei
+        // Update the ETH amount whenever the INR amount is changed
+        $('#inr_amount').on('input', function() {
+          let inrAmount = $(this).val();
+          let ethAmount = inrAmount / ethRate;
+          ethAmountglobal = ethAmount;
+          $('#eth_amount').val(ethAmount.toFixed(6));
+        });
 
-      let amountToSendInr = 0;
+        // Add the selected amount to the INR amount when the button is clicked
+        $('.btn-group .btn').on('click', function() {
+          let amount = parseInt($(this).data('amount'));
+          let inrAmount = parseInt($('#inr_amount').val());
+          let newInrAmount = inrAmount ? inrAmount + amount : amount;
+          $('#inr_amount').val(newInrAmount).trigger('input');
+        });
 
-      // Get the ETH/INR exchange rate
-      await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr')
-        .then(response => response.json())
-        .then(data => {
-          const ethInrRate = data.ethereum.inr;
-          // Convert ETH to INR
-          amountToSendInr = amountToSend * ethInrRate;
-        })
-        .catch(error => console.error(error));
+        // JavaScript code for sending ETH
+        function sendEth() {
+          let sendEthButton = document.querySelector('.sendEthButton');
+          let toAddressInput = document.querySelector('.toAddressInput');
+
+          sendEthButton.addEventListener('click', async () => {
+            let toAddress = toAddressInput.value;
+            let amountToSend = ethAmountglobal;
+            let amountToSendWei = amountToSend * 1e18;
+
+            let amountToSendInr = 0;
+
+            // Get the ETH/INR exchange rate
+            await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr')
+              .then(response => response.json())
+              .then(data => {
+                const ethInrRate = data.ethereum.inr;
+                // Convert ETH to INR
+                amountToSendInr = amountToSend * ethInrRate;
+              })
+              .catch(error => console.error(error));
 
 
-      // Enable Ethereum if not enabled
-      if (typeof ethereum !== 'undefined') {
-        await ethereum.enable();
-      }
+            // Enable Ethereum if not enabled
+            if (typeof ethereum !== 'undefined') {
+              ethereum.enable();
+            }
 
+            // Send transaction
+            ethereum
+              .request({
+                method: 'eth_sendTransaction',
+                params: [{
+                  from: ethereum.selectedAddress, // The user's active address.
+                  to: toAddress, // Set the recipient address to the user-entered value.
+                  value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
+                }],
+              })
+              .then((txHash) => {
+                console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
+                // Add confirmation message
+                const confirmationMsg = document.createElement('p');
+                confirmationMsg.textContent = `Transaction sent.`;
+                sendEthButton.parentElement.appendChild(confirmationMsg);
 
-      // Send transaction
-      ethereum
-        .request({
-          method: 'eth_sendTransaction',
-          params: [{
-            from: ethereum.selectedAddress, // The user's active address.
-            to: toAddress, // Set the recipient address to the user-entered value.
-            value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
-          }],
-        })
-        .then((txHash) => {
-          console.log(txHash); // https://sepolia.etherscan.io/tx/0xcf....42
-          console.log(`inside ethreum INR: ${amountToSendInr}`);
-          // Add confirmation message
-          const confirmationMsg = document.createElement('p');
-          confirmationMsg.textContent = `Transaction sent.`;
-          sendEthButton.parentElement.appendChild(confirmationMsg);
+                // Add button to view transaction on a block explorer
+                const viewTxButton = document.createElement('button');
+                viewTxButton.textContent = 'View Transaction on Etherscan';
+                viewTxButton.classList.add('viewTxButton', 'btn');
+                viewTxButton.addEventListener('click', () => {
+                  window.open(`https://sepolia.etherscan.io/tx/${txHash}`, '_blank');
+                });
+                sendEthButton.parentElement.appendChild(viewTxButton);
 
-          // Add button to view transaction on a block explorer
-          const viewTxButton = document.createElement('button');
-          viewTxButton.textContent = 'View Transaction on Etherscan';
-          viewTxButton.classList.add('viewTxButton', 'btn');
-          viewTxButton.addEventListener('click', () => {
-            window.open(`https://sepolia.etherscan.io/tx/${txHash}`, '_blank');
+                // Insert transaction data into database
+                fetch('./insert_transaction_add.php', {
+                    method: 'POST',
+                    headers: {
+                      'Content-type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSend}&amountRupee=${amountToSendInr}&tx_hash=${txHash}`
+                  })
+                  .then(response => {
+                    if (response.ok) {
+                      console.log('Transaction data inserted successfully!');
+                    } else {
+                      throw new Error('Error inserting transaction data');
+                    }
+                  })
+                  .catch(error => {
+                    console.error(error);
+                    // Display error message to user
+                    const errorMsg = document.createElement('p');
+                    errorMsg.textContent = 'Transaction data could not be inserted into the database.';
+                    sendEthButton.parentElement.appendChild(errorMsg);
+                  });
+              })
+              .catch((error) => console.error(error));
           });
-          sendEthButton.parentElement.appendChild(viewTxButton);
+        }
 
-          // Insert transaction data into database
-          fetch('./insert_transaction_add.php', {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/x-www-form-urlencoded'
-              },
-              body: `from_address=${ethereum.selectedAddress}&to_address=${toAddress}&amount=${amountToSend}&amountRupee=${amountToSendInr}&tx_hash=${txHash}`
-            })
-            .then(response => {
-              if (response.ok) {
-                console.log('Transaction data inserted successfully!');
-              } else {
-                throw new Error('Error inserting transaction data');
-              }
-            })
-            .catch(error => {
-              console.error(error);
-              // Display error message to user
-              const errorMsg = document.createElement('p');
-              errorMsg.textContent = 'Transaction data could not be inserted into the database.';
-              sendEthButton.parentElement.appendChild(errorMsg);
-            });
-        })
-        .catch((error) => console.error(error));
-
+        // Call the sendEth function to initiate the sending process
+        sendEth();
+      });
     });
   </script>
 
