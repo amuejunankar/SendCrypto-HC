@@ -57,17 +57,18 @@
                                 echo './html/receiveOld.php';
                             }
                             ?>" target="">Receive</a>
-                <a href="<?php
-                            // Check if user is logged in
-                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                                // If user is logged in, set the appropriate URL
-                                echo './html/account/account.php';
-                            } else {
-                                // If user is not logged in, set the appropriate URL
-                                echo './html/login.php';
-                            }
-                            ?>" target="">Login</a>
+                <?php
+                // Check if user is logged in
+                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, display My Account link
+                    echo '<a href="./html/account/account.php">My Account</a>';
+                } else {
+                    // If user is not logged in, display Login link
+                    echo '<a href="./html/login.php">Login</a>';
+                }
+                ?>
             </div>
+
         </div>
 
 
