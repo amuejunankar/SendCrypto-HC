@@ -68,7 +68,7 @@ if (isset($_POST['logout'])) {
             margin: 10px 0;
         }
 
-        
+
 
         .card button[type="submit"],
         .card .sendEthButton.btn {
@@ -98,38 +98,53 @@ if (isset($_POST['logout'])) {
 <body class="body">
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../../index.php">Send Crypto</a>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../../index.php">Home</a>
-                </li>
-                <li>
-                    <a href="../send.php">Send</a>
-                </li>
-                <li>
-                    <a href="">Receive</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href=".././account/account.php">My Account</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../../html/login.html">Login</a>';
-                    }
-                    ?>
-                </li>
-
-            </ul>
-
-
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+            <div class="nav-links">
+                <a href="../../index.php" target="">Home</a>
+                <a href="<?php
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo '../send.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo '../sendOld.php';
+                            }
+                            ?>" target="">Send</a>
+                <a href="<?php
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo '../receive.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo '../receiveOld.php';
+                            }
+                            ?>" target="">Receive</a>
+                <a href="<?php
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, set the appropriate URL
+                                echo '../account/account.php';
+                            } else {
+                                // If user is not logged in, set the appropriate URL
+                                echo './html/login.php';
+                            }
+                            ?>" target="">My Account</a>
+            </div>
         </div>
     </div>
     <br></br><br></br>
