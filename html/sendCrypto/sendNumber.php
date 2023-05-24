@@ -144,10 +144,19 @@ if (isset($_POST['logout'])) {
             position: relative;
         }
 
+        .toAddressInput {
+            font-size: 17px;
+            /* Set the desired font size for the first input */
+        }
+
+        #inr_amount {
+            font-size: 24px;
+            /* Set the desired font size for the second input */
+        }
+
         .input-group input {
             padding: 12px;
-            font-size: 24px;
-            border-radius: 8px;
+            border-radius: 14px;
             border: none;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -176,7 +185,7 @@ if (isset($_POST['logout'])) {
             content: "\20B9";
             position: absolute;
             left: 10px;
-            top: 50%;
+            top: 79%;
 
             transform: translateY(-50%);
             font-size: 18px;
@@ -261,7 +270,7 @@ if (isset($_POST['logout'])) {
             background-color: #4058c7;
         }
     </style>
-    </style>
+
 </head>
 
 <body class="body">
@@ -326,11 +335,19 @@ if (isset($_POST['logout'])) {
 
     <div class="container">
         <div class="header">
-            <h1>Pay Page</h1>
+            <h1>Pay to Contacts</h1>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <input type="number" class="toAddressInput" placeholder="Enter Mobile Number">
+                <!-- <input type="number" class="toAddressInput" placeholder="Enter Mobile Number"> -->
+
+
+
+
+                <input type="number" class="toAddressInput" placeholder="Enter Mobile Number" oninput="validateMobileNumber(this)" minlength="10" maxlength="10" pattern="\d{10}">
+                <p id="error-message" style="display: none; color: red;">Please enter a 10-digit mobile number.</p>
+
+
                 <br>
                 <input type="number" id="inr_amount" class="form-control" placeholder="Enter amount in INR" min="0" step="1" required>
             </div>
@@ -351,7 +368,19 @@ if (isset($_POST['logout'])) {
         <button class="sendEthButton">Pay Now</button>
     </div>
 
+    <script>
+        function validateMobileNumber(input) {
+            var mobileNumber = input.value;
 
+            if (mobileNumber.length !== 10) {
+                // Show error message
+                document.getElementById('error-message').style.display = 'block';
+            } else {
+                // Hide error message
+                document.getElementById('error-message').style.display = 'none';
+            }
+        }
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
