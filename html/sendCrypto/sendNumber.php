@@ -341,12 +341,8 @@ if (isset($_POST['logout'])) {
             <div class="input-group">
                 <!-- <input type="number" class="toAddressInput" placeholder="Enter Mobile Number"> -->
 
-
-
-
                 <input type="number" class="toAddressInput" placeholder="Enter Mobile Number" oninput="validateMobileNumber(this)" minlength="10" maxlength="10" pattern="\d{10}">
                 <p id="error-message" style="display: none; color: red;">Please enter a 10-digit mobile number.</p>
-
 
                 <br>
                 <input type="number" id="inr_amount" class="form-control" placeholder="Enter amount in INR" min="0" step="1" required>
