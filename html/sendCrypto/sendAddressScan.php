@@ -25,13 +25,11 @@ if (isset($_POST['logout'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle form submission
   $toAddress = $_POST['toAddress'];
-  $amount = $_POST['amount'];
-  // Your code to transfer the ETH to $toAddress with $amount
+  // Your code to transfer the ETH to $toAddress
 } else {
   // Display form
   $toAddress = isset($_GET['toAddress']) ? $_GET['toAddress'] : '';
 }
-
 
 
 
@@ -361,7 +359,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="form-group">
       <div class="input-group">
-        <input type="text" class="toAddressInput" placeholder="Enter ETH Address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>>
+        <input type="text" class="toAddressInput" placeholder="Enter ETH Address" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>">
         <br>
         <input type=" number" id="inr_amount" class="form-control" placeholder="Enter amount in INR" min="0" step="1" required>
       </div>
@@ -418,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           sendEthButton.addEventListener('click', async () => {
             let toAddress = toAddressInput.value;
             let amountToSend = ethAmountglobal;
-            let amountToSendWei = amountToSend * 1e18;
+            let amountToSendWei = Math.floor(amountToSend * 1e18);
 
             let amountToSendInr = 0;
 

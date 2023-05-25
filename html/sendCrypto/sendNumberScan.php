@@ -24,13 +24,11 @@ if (isset($_POST['logout'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle form submission
     $toAddress = $_POST['toAddress'];
-    $amount = $_POST['amount'];
-    // Your code to transfer the ETH to $toAddress with $amount
+    // Your code to transfer the ETH to $toAddress
 } else {
     // Display form
     $toAddress = isset($_GET['toAddress']) ? $_GET['toAddress'] : '';
 }
-
 
 
 ?>
@@ -344,11 +342,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- HTML code -->
     <div class="container">
         <div class="header">
-            <h1>Pay Page</h1>
+            <h1>Pay to Contacts</h1>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <input type="number" class="toAddressInput" placeholder="Enter Mobile Number" oninput="validateMobileNumber(this)" minlength="10" maxlength="10" pattern="\d{10}">
+                <input type="text" class="toAddressInput" placeholder="Enter Mobile Number" value="<?php echo isset($toAddress) ? htmlspecialchars($toAddress) : ''; ?>">
                 <p id="error-message" style="display: none; color: red;">Please enter a 10-digit mobile number.</p>
 
                 <br>
@@ -421,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     sendEthButton.addEventListener('click', async () => {
                         let mobileNumber = toAddressInput.value;
                         let amountToSend = ethAmountglobal;
-                        let amountToSendWei = amountToSend * 1e18;
+                        let amountToSendWei = Math.floor(amountToSend * 1e18);
 
                         let amountToSendInr = 0;
 

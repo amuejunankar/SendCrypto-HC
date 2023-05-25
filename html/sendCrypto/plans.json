@@ -2,49 +2,16 @@
     "Airtel": [
       {
         "id": 1,
-        "name": "Rs. 199 Plan",
-        "price": 199
-      },
-      {
-        "id": 2,
-        "name": "Rs. 399 Plan",
+        "name": "Rs. 399 Plan - 84Days 1.5GB/Day (0.0026 ETH)",
         "price": 399
       }
     ],
-    "Vodafone": [
-      {
-        "id": 3,
-        "name": "Rs. 149 Plan",
-        "price": 149
-      },
-      {
-        "id": 4,
-        "name": "Rs. 299 Plan",
-        "price": 299
-      }
-    ],
-    "Idea": [
-      {
-        "id": 5,
-        "name": "Rs. 249 Plan",
-        "price": 249
-      },
-      {
-        "id": 6,
-        "name": "Rs. 499 Plan",
-        "price": 499
-      }
-    ],
+    
     "Jio": [
       {
-        "id": 7,
-        "name": "Rs. 198 Plan",
-        "price": 198
-      },
-      {
-        "id": 8,
-        "name": "Rs. 399 Plan",
-        "price": 399
+        "id": 2,
+        "name": "Rs. 199 Plan - 42Days 1.5GB/Day  (0.0013 ETH)",
+        "price": 199
       }
     ]
   }
