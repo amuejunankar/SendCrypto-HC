@@ -16,8 +16,9 @@ body {
   height: 70px;
   width: 100%;
   background-color: #4f6bff;
-  position: relative;
-
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }
 
 .nav>.nav-header {
@@ -66,10 +67,10 @@ body {
 @media (max-width:680px) {
   .nav>.nav-btn {
     display: inline-block;
-    position: absolute;
+    position: fixed;
     right: 0px;
     top: 12px;
-    
+
   }
 
   .nav>.nav-btn>label {
@@ -92,7 +93,7 @@ body {
   }
 
   .nav>.nav-links {
-    position: absolute;
+    position: fixed;
     display: block;
     width: 100%;
     background-color: #333;
