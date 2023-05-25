@@ -413,7 +413,7 @@ if (isset($_POST['logout'])) {
           sendEthButton.addEventListener('click', async () => {
             let toAddress = toAddressInput.value;
             let amountToSend = ethAmountglobal;
-            let amountToSendWei = amountToSend * 1e18;
+            let amountToSendWei = Math.floor(amountToSend * 1e18);
 
             let amountToSendInr = 0;
 

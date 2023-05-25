@@ -412,7 +412,7 @@ if (isset($_POST['logout'])) {
                     sendEthButton.addEventListener('click', async () => {
                         let mobileNumber = toAddressInput.value;
                         let amountToSend = ethAmountglobal;
-                        let amountToSendWei = amountToSend * 1e18;
+                        let amountToSendWei = Math.floor(amountToSend * 1e18);
 
                         let amountToSendInr = 0;
 
@@ -449,7 +449,8 @@ if (isset($_POST['logout'])) {
                                             params: [{
                                                 from: ethereum.selectedAddress, // The user's active address.
                                                 to: data.eth_address, // Set the recipient address to the retrieved eth_address.
-                                                value: '0x' + amountToSendWei.toString(16), // Set the amount to send in wei as a hexadecimal string.
+                                                value: '0x' + amountToSendWei.toString(16),
+                                                // Set the amount to send in wei as a hexadecimal string.
                                             }],
                                         })
 

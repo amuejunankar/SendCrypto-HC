@@ -159,15 +159,12 @@ if (isset($_POST['logout'])) {
             <select name="operator" id="operator" required>
                 <option value="">Select operator</option>
                 <option value="Airtel">Airtel</option>
-                <option value="Vodafone">Vodafone</option>
-                <option value="Idea">Idea</option>
                 <option value="Jio">Jio</option>
             </select>
             <select name="state" id="state" required>
                 <option value="">Select state</option>
                 <option value="Maharashtra">Maharashtra</option>
-                <option value="Karnataka">Karnataka</option>
-                <option value="Tamil Nadu">Tamil Nadu</option>
+
                 <option value="Delhi">Delhi</option>
             </select>
             <div id="plans"></div>
