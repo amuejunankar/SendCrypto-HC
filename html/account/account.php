@@ -92,141 +92,180 @@ mysqli_close($conn);
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="./styles/sidebar.css">
     <link rel="stylesheet" href="./styles/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
+
 
 </head>
 
 
 <body class="body">
-
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../../index.php">Send Crypto</a>
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../../index.php">Home</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../send.php">Send</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../sendOld.php">Send</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    
+            <div class="nav-links">
+                <a href="" target="">Home</a>
+                <a href="<?php
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../receive.php">Receive</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../receiveOld.php">Receive</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <a href="">My Account</a>
-                </li>
-            </ul>
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../send.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../sendOld.php';
+                            }
+                            ?>" target="">Send</a>
+                <a href="<?php
+
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../receive.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../receiveOld.php';
+                            }
+                            ?>" target="">Receive</a>
+                <?php
+                // Check if user is logged in
+                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, display My Account link
+                    echo '<a href="">My Account</a>';
+                } else {
+                    // If user is not logged in, display Login link
+                    echo '<a href="./html/login.php">Login</a>';
+                }
+                ?>
+            </div>
+
         </div>
+
+
     </div>
     <br><br><br><br><br>
 
-    
-    <div class="sidebar">
-        <ul>
-            <li><a href="">Profile Settings</a></li>
-            <li><a href="./transaction-history.php">Transaction History</a></li>
-            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
-            <li><a href="./security.php">Security</a></li>
 
-            <li>
-                <form method="POST"><button type="submit" name="logout">Logout</button></form>
-            </li>
-        </ul>
+
+
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+            <a class="s-sidebar__trigger" href="#0">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <nav class="s-sidebar__nav">
+                <ul>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="">
+                            <i class="fa fa-user"></i><em>Profile Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction-history.php">
+                            <i class="fa fa-history"></i><em>Transaction History</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction_settings.php">
+                            <i class="fa fa-cogs"></i><em>Transaction Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./security.php">
+                            <i class="fa fa-lock"></i><em>Security</em>
+                        </a>
+                    </li>
+                    <li>
+                        <form method="POST">
+                            <button type="submit" name="logout" class="logout-button">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+
+        <main class="s-layout__content">
+
+
+            <div class="profile-info" style="margin-left: auto;
+                                    margin-top: 30px;">
+
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <div class="profile-header">
+                        <h1>Profile</h1>
+                    </div>
+                    <div class="profile-container">
+                        <div class="profile-picture-container form-group">
+                            <img src="<?= $image_src ?>" alt="Profile Picture" id="profile-picture">
+                            <input type="file" id="profile-picture-input" accept="image/*" name="imageFile">
+                        </div>
+                        <div class="form-group">
+                            <label for="first-name">First Name:</label>
+                            <input value="<?= $fname ?>" type="text" id="fname" name="fname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-name">Last Name:</label>
+                            <input value="<?= $lname ?>" type="text" id="lname" name="lname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input value="<?= $email ?>" type="email" id="email" name="email" required disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile-number">Mobile Number:</label>
+                            <input value="<?= $mobileNumber ?>" type="tel" id="mobile-number" name="mobile-number" required disabled>
+                        </div>
+
+                    </div>
+                    <button class="save-btn" type="submit">Save Changes</button>
+                </form>
+
+                <script>
+                    const profilePicture = document.getElementById('profile-picture');
+                    const profilePictureInput = document.getElementById('profile-picture-input');
+
+                    profilePicture.addEventListener('click', () => {
+                        profilePictureInput.click();
+                    });
+
+                    profilePictureInput.addEventListener('change', (event) => {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => {
+                            profilePicture.src = reader.result;
+                        };
+                    });
+                </script>
+
+
+
+
+        </main>
     </div>
-
-
-    <!-- Add your HTML content here -->
-
-    <div class="profile-info" style="margin-left: 42%;
-                                    margin-top: 1%;">
-        <!DOCTYPE html>
-        <html>
-
-        <head>
-            <title>Profile Form</title>
-        </head>
-
-        <body>
-            <form action="upload.php" method="post" enctype="multipart/form-data">
-                <div class="profile-header">
-                    <h1>Profile</h1>
-                </div>
-                <div class="profile-container">
-                    <div class="profile-picture-container form-group">
-                        <img src="<?= $image_src ?>" alt="Profile Picture" id="profile-picture">
-                        <input type="file" id="profile-picture-input" accept="image/*" name="imageFile">
-                    </div>
-                    <div class="form-group">
-                        <label for="first-name">First Name:</label>
-                        <input value="<?= $fname ?>" type="text" id="fname" name="fname" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="last-name">Last Name:</label>
-                        <input value="<?= $lname ?>" type="text" id="lname" name="lname" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input value="<?= $email ?>" type="email" id="email" name="email" required disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mobile-number">Mobile Number:</label>
-                        <input value="<?= $mobileNumber ?>" type="tel" id="mobile-number" name="mobile-number" required disabled>
-                    </div>
-
-                </div>
-                <button class="save-btn" type="submit">Save Changes</button>
-            </form>
-
-            <script>
-                const profilePicture = document.getElementById('profile-picture');
-                const profilePictureInput = document.getElementById('profile-picture-input');
-
-                profilePicture.addEventListener('click', () => {
-                    profilePictureInput.click();
-                });
-
-                profilePictureInput.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => {
-                        profilePicture.src = reader.result;
-                    };
-                });
-            </script>
-        </body>
-
-        </html>
-
-
 
 </body>
 
