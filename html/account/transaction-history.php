@@ -31,7 +31,7 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="./styles/transaction_history.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="./styles/sidebar.css">
 
 </head>
 
@@ -99,14 +99,8 @@ if (isset($_POST['logout'])) {
         </div>
 
 
-
-
-
     </div>
     <br><br><br><br><br>
-
-
-
 
     <div class="s-layout">
         <!-- Sidebar -->
@@ -149,14 +143,7 @@ if (isset($_POST['logout'])) {
         </div>
 
 
-
-
-        <!-- Content -->
-
-
         <main class="s-layout__content">
-            
-
 
 
             <div class="table-container">
@@ -177,9 +164,14 @@ if (isset($_POST['logout'])) {
                     include '../../database/connection.php';
                     $conn = connect();
 
+                    // Define pagination variables
+                    $resultsPerPage = 10;
+                    $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                    $startIndex = ($currentPage - 1) * $resultsPerPage;
+
                     // Prepare SQL statement and handle any errors
-                    $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ?");
-                    $stmt->bind_param("s", $email);
+                    $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ? LIMIT ?, ?");
+                    $stmt->bind_param("sii", $email, $startIndex, $resultsPerPage);
 
                     if (!$stmt) {
                         die("Error preparing statement: " . mysqli_error($conn));
@@ -207,39 +199,56 @@ if (isset($_POST['logout'])) {
                         echo "Error retrieving transaction data: " . $stmt->error;
                     }
 
-
-                    // Close the prepared statement and database connection
+                    // Close the prepared statement
                     $stmt->close();
+
+                    // Calculate total number of pages
+                    $stmtCount = $conn->prepare("SELECT COUNT(*) AS total FROM transactions WHERE email = ?");
+                    $stmtCount->bind_param("s", $email);
+                    if ($stmtCount->execute()) {
+                        $totalCount = $stmtCount->get_result()->fetch_assoc()['total'];
+                        $totalPages = ceil($totalCount / $resultsPerPage);
+
+                        // Close the prepared statement
+                        $stmtCount->close();
+
+                        // Display transactions in a table
+                        echo "</table>";
+
+                        // Display pagination links
+                        echo "<div class='pagination'>";
+                        if ($currentPage > 1) {
+                            echo "<a href='?page=" . ($currentPage - 1) . "'>&laquo; Previous</a>";
+                        }
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                            echo "<a href='?page=" . $i . "'" . ($currentPage == $i ? " class='active'" : "") . ">" . $i . "</a>";
+                        }
+                        if ($currentPage < $totalPages) {
+                            echo "<a href='?page=" . ($currentPage + 1) . "'>Next &raquo;</a>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "Error retrieving transaction count: " . $stmtCount->error;
+                    }
+
+                    // Close the database connection
                     mysqli_close($conn);
                     ?>
+
                 </table>
+
+                <form method="post" action="getTransactions.php">
+                    <button type="submit">Download Transaction Details</button>
+                </form>
+
             </div>
 
+
+
+
+
         </main>
-
     </div>
-
-
-
-
-
-
-
-
-
-    <div class="sidebar">
-        <ul>
-            <li><a href="./account.php">Profile Settings</a></li>
-            <li><a href="">Transaction History</a></li>
-            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
-            <li><a href="./security.php">Security</a></li>
-
-            <li>
-                <form method="POST"><button type="submit" name="logout">Logout</button></form>
-            </li>
-        </ul>
-    </div>
-
 
 
 </body>
