@@ -12,7 +12,7 @@ $from_address = mysqli_real_escape_string($conn, $_POST["from_address"]);
 $to_address = mysqli_real_escape_string($conn, $_POST["to_address"]);
 $amount = mysqli_real_escape_string($conn, $_POST["amount"]);
 $tx_hash = mysqli_real_escape_string($conn, $_POST["tx_hash"]);
-$amountRupee = mysqli_real_escape_string($conn,$_POST['amountRupee']);
+$amountRupee = mysqli_real_escape_string($conn, $_POST['amountRupee']);
 
 $amountRupee = number_format(floatval($amountRupee), 2);
 
@@ -54,10 +54,77 @@ $row = $result->fetch_assoc();
 $date = $row['created_at'];
 
 
-// Send Mail To User About Transaction
-sendMailTransaction($email, $from_address, $to_address, $amount, $tx_hash, $amountRupee);
+// to add data  in receiver side --------------------------------------------
+
+// Check if to_address is a mobile number
+if (preg_match('/^\d{10}$/', $to_address)) {
+  // It's a mobile number
+  // Retrieve email from the database using the mobile number
+  $query2 = "SELECT email FROM accounttable WHERE mobilenumber = '$to_address'";
+  $result2 = $conn->query($query2);
+
+  if ($result2->num_rows > 0) {
+    // Mobile number found in the database
+    $row2 = $result2->fetch_assoc();
+    $emailR = $row2['email'];
+
+    // Switch from_address and to_address
+    $temp_address = $from_address;
+    $from_address = $to_address;
+    $to_address = $temp_address;
+
+    // Prepare and execute the INSERT statement
+    $stmt2 = $conn->prepare("INSERT INTO transactions (from_address, to_address, amountRupee, amount, tx_hash, email, transaction_type) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt2->bind_param("ssddsss", $from_address, $to_address, $amountRupee, $amount, $tx_hash, $emailR, $transaction_type);
+    $stmt2->execute();
+
+    sleep(10);
+    // Send Mail To User About Transaction
+    sendMailTransactionR($emailR, $from_address, $to_address, $amount, $tx_hash, $amountRupee);
+
+
+    echo "Transaction data inserted successfully!";
+  } else {
+    // Mobile number not found in the database
+    echo "No email associated with the provided mobile number.";
+  }
+} else {
+  // It's an address
+
+  // Check if to_address exists in the database and retrieve associated email
+  $query3 = "SELECT email FROM accounttable WHERE eth_address = '$to_address'";
+  $result3 = $conn->query($query3);
+
+  if ($result3->num_rows > 0) {
+    $row3 = $result3->fetch_assoc();
+    $emailRAddr = $row3['email'];
+
+    // Switch from_address and to_address
+    $temp_address = $from_address;
+    $from_address = $to_address;
+    $to_address = $temp_address;
+
+    // Prepare and execute the INSERT statement
+    $stmt3 = $conn->prepare("INSERT INTO transactions (from_address, to_address, amountRupee, amount, tx_hash, email, transaction_type) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt3->bind_param("ssddsss", $from_address, $to_address, $amountRupee, $amount, $tx_hash, $emailRAddr, $transaction_type);
+    $stmt3->execute();
+
+    // Send Mail To User About Transaction
+    sendMailTransactionR($emailRAddr, $from_address, $to_address, $amount, $tx_hash, $amountRupee);
+
+
+    echo "Transaction data inserted successfully!";
+  } else {
+    echo "No email associated with the provided to_address.";
+    // means send email to sender.
+    sendMailTransaction($email, $from_address, $to_address, $amount, $tx_hash, $amountRupee);
+
+  }
+}
+
+//END of receiver side --------------------------------------------
+
 
 // Close the prepared statement and database connection
 $stmt->close();
 mysqli_close($conn);
-?>
