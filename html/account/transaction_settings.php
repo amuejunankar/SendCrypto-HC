@@ -131,7 +131,6 @@ mysqli_close($conn);
                 font-size: 16px;
             }
         }
-
     </style>
 </head>
 
@@ -255,6 +254,7 @@ mysqli_close($conn);
                 <h1>Transaction Settings</h1>
                 <p id="address">Your MetaMask address will be displayed here.</p>
                 <button id="enableBtn">Enable Mobile Number Transaction</button>
+                <p>Connect your wallet securely by clicking the button above.</p>
             </div>
             <script>
                 // Declare global variable to store user's Ethereum address

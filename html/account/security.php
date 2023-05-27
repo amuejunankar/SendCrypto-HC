@@ -1,47 +1,3 @@
-<?php
-
-
-
-include '../../database/connection.php';
-$conn = connect();
-
-$email = mysqli_real_escape_string($conn, $_POST['email']);
-$password = mysqli_real_escape_string($conn, $_POST['password']);
-
-// Check if email and password match in database
-$query = "SELECT * FROM accounttable WHERE email = '$email' AND password = '$password'";
-$result = mysqli_query($conn, $query);
-
-if (mysqli_num_rows($result) > 0) {
-    // Email and password match, proceed to dashboard
-
-    // Delete account from database
-    $sql = "DELETE FROM accounttable WHERE email = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-        echo "Account deleted successfully.";
-        session_unset();
-        session_destroy();
-        $_SESSION['logged_in'] = false;
-        header("Location: ../login.html");
-    } else {
-        echo "Failed to delete account. Please check your email and password.";
-    }
-} else {
-    // Email and password do not match, show error message
-    echo "Invalid Email or Password";
-}
-
-
-
-// Close connection
-mysqli_close($conn);
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -51,6 +7,9 @@ mysqli_close($conn);
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="./styles/sidebar.css">
     <link rel="stylesheet" href="./styles/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
+
 
     <style>
         body {
@@ -64,9 +23,12 @@ mysqli_close($conn);
             max-width: 400px;
             margin: 40px auto;
             padding: 40px;
+            height: 450px;
             background-color: #ffffff;
             border-radius: 10px;
+            margin-top: 20%;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s ease;
         }
 
         h1 {
@@ -125,104 +87,159 @@ mysqli_close($conn);
             background-color: #ff3333;
         }
 
+
+        @media (max-width: 900px) {
+            .container {
+                margin: 0 20px 40px 20px;
+                padding: 20px;
+                margin-top: 30%;
+                padding: 40px;
+                transition: background-color 0.5s ease;
+            }
+        }
+
         @media (max-width: 600px) {
             .container {
-                margin: 40px auto;
+                margin: 0 20px 40px 20px;
                 padding: 20px;
+                margin-top: 35%;
+                padding: 40px;
+                transition: background-color 0.5s ease;
             }
         }
     </style>
 
 </head>
 
-
 <body class="body">
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../../index.php">Send Crypto</a>
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../../index.php">Home</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    session_start();
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../send.php">Send</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../sendOld.php">Send</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-                    
+            <div class="nav-links">
+                <a href="../../index.php" target="">Home</a>
+                <a href="<?php
+                            // Start the session
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../receive.php">Receive</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../receiveOld.php">Receive</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../send.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../sendOld.php';
+                            }
+                            ?>" target="">Send</a>
+                <a href="<?php
+                            // Start the session
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="./account.php">My Account</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="./html/login.php">Login</a>';
-                    }
-                    ?>
-                </li>
-            </ul>
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../receive.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../receiveOld.php';
+                            }
+                            ?>" target="">Receive</a>
+                <?php
+                // Start the session
+
+                // Check if user is logged in
+                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, display My Account link
+                    echo '<a href="./account.php">My Account</a>';
+                } else {
+                    // If user is not logged in, display Login link
+                    echo '<a href="./html/login.php">Login</a>';
+                }
+                ?>
+            </div>
+
+
         </div>
+
+
     </div>
     <br><br><br><br><br>
-    <div class="sidebar">
-        <ul>
-            <li><a href="./account.php">Profile Settings</a></li>
-            <li><a href="./transaction-history.php">Transaction History</a></li>
-            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
-            <li><a href="">Security</a></li>
 
-            <li>
-                <form method="POST"><button type="submit" name="logout">Logout</button></form>
-            </li>
-        </ul>
+
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+            <a class="s-sidebar__trigger" href="#0">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <nav class="s-sidebar__nav">
+                <ul>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./account.php">
+                            <i class="fa fa-user"></i><em>Profile Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction-history.php">
+                            <i class="fa fa-history"></i><em>Transaction History</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction_settings.php">
+                            <i class="fa fa-cogs"></i><em>Transaction Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="">
+                            <i class="fa fa-lock"></i><em>Security</em>
+                        </a>
+                    </li>
+                    <li>
+                        <form method="POST">
+                            <button type="submit" name="logout" class="logout-button">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <main class="s-layout__content">
+            <div class="container">
+                <h1>Delete Account</h1>
+                <p class="message">Are you sure you want to delete your account? This action cannot be undone.</p>
+
+                <form action="./deleteAccount.php" method="post">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                    <button type="submit">Delete Account</button>
+                </form>
+
+            </div>
+        </main>
     </div>
 
-    <div class="container">
-        <h1>Delete Account</h1>
-        <p class="message">Are you sure you want to delete your account? This action cannot be undone.</p>
-        <form action="" method="post">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password">
-            </div>
-            <button type="submit">Delete Account</button>
-        </form>
-    </div>
 </body>
 
 </html>
