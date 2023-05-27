@@ -35,10 +35,6 @@ mysqli_close($conn);
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -46,178 +42,276 @@ mysqli_close($conn);
     <title>Transaction Settings</title>
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="./styles/sidebar.css">
-    <style>
-        /* styles.css */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    <style>
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px 20px;
+            text-align: center;
+            margin-top: 5%;
+            margin-left: 5%;
+            margin-right: 5%;
+            font-family: 'Arial', sans-serif;
+            height: 200px;
         }
 
         h1 {
-            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
         p {
-            text-align: center;
+            font-size: 16px;
+            color: #666;
         }
 
         button {
-            display: block;
-            margin: 0 auto;
-            margin-top: 20px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
+            background-color: #4CAF50;
+            color: white;
             border: none;
             border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
         }
 
-        #address {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #333;
+
+        @media screen and (max-width: 672px) {
+            .card {
+                padding: 20px;
+                margin-top: 20%;
+                font-family: 'Arial', sans-serif;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 16px;
+            }
         }
+
+
+
+        @media screen and (max-width: 450px) {
+            .card {
+                padding: 10px;
+                margin-top: 20%;
+                font-family: 'Arial', sans-serif;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 16px;
+            }
+        }
+
     </style>
 </head>
 
-<body>
+<body class="body">
 
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../../index.php">Send Crypto</a>
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../../index.php">Home</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a href="../../index.php" target="">Home</a>
+                <a href="<?php
+                            // Start the session
+
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../send.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../sendOld.php';
+                            }
+                            ?>" target="">Send</a>
+                <a href="<?php
+                            // Start the session
+
+                            // Check if user is logged in
+                            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                                // If user is logged in, display My Account link
+                                echo '../receive.php';
+                            } else {
+                                // If user is not logged in, display Login link
+                                echo '../receiveOld.php';
+                            }
+                            ?>" target="">Receive</a>
+                <?php
+                // Start the session
+
+                // Check if user is logged in
+                if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                    // If user is logged in, display My Account link
+                    echo '<a href="./account.php">My Account</a>';
+                } else {
+                    // If user is not logged in, display Login link
+                    echo '<a href="./html/login.php">Login</a>';
+                }
+                ?>
+            </div>
 
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../send.php">Send</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../sendOld.php">Send</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-
-
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="../receive.php">Receive</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../receiveOld.php">Receive</a>';
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                        // If user is logged in, display My Account link
-                        echo '<a href="./account/account.php">My Account</a>';
-                    } else {
-                        // If user is not logged in, display Login link
-                        echo '<a href="../html/login.html">Login</a>';
-                    }
-                    ?>
-                </li>
-            </ul>
         </div>
+
+
+
+
     </div>
     <br><br><br><br><br>
-    <div class="sidebar">
-        <ul>
-            <li><a href="./account.php">Profile Settings</a></li>
-            <li><a href="./transaction-history.php">Transaction History</a></li>
-            <li><a href="./transaction_settings.php">Transaction Settings</a></li>
-            <li><a href="./security.php">Security</a></li>
 
-            <li>
-                <form method="POST"><button type="submit" name="logout">Logout</button></form>
-            </li>
-        </ul>
+
+    <div class="s-layout">
+        <!-- Sidebar -->
+        <div class="s-layout__sidebar">
+            <a class="s-sidebar__trigger" href="#0">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <nav class="s-sidebar__nav">
+                <ul>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./account.php">
+                            <i class="fa fa-user"></i><em>Profile Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction-history.php">
+                            <i class="fa fa-history"></i><em>Transaction History</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./transaction_settings.php">
+                            <i class="fa fa-cogs"></i><em>Transaction Settings</em>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="s-sidebar__nav-link" href="./security.php">
+                            <i class="fa fa-lock"></i><em>Security</em>
+                        </a>
+                    </li>
+                    <li>
+                        <form method="POST">
+                            <button type="submit" name="logout" class="logout-button">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <main class="s-layout__content">
+
+
+
+            <!-- ---------------------MAIN THINGS----------------------- -->
+            <div class="card">
+                <h1>Transaction Settings</h1>
+                <p id="address">Your MetaMask address will be displayed here.</p>
+                <button id="enableBtn">Enable Mobile Number Transaction</button>
+            </div>
+            <script>
+                // Declare global variable to store user's Ethereum address
+                var eth_address = '';
+
+                document.getElementById('enableBtn').addEventListener('click', function() {
+                    // Check if MetaMask is installed
+                    if (typeof window.ethereum === 'undefined') {
+                        alert('Please install MetaMask to enable mobile number transaction.');
+                        return;
+                    }
+
+                    // Request MetaMask to connect
+                    ethereum.request({
+                            method: 'eth_requestAccounts'
+                        })
+                        .then(accounts => {
+                            // Store user's address in a variable
+                            eth_address = accounts[0];
+                            // Update the paragraph with the user's address
+                            document.getElementById('address').textContent = 'Your MetaMask address: ' + eth_address;
+
+                            // Send an AJAX request to update_eth_address.php to update the eth_address in the database
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', 'update_eth_address.php', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        console.log('eth_address updated successfully!');
+                                    } else {
+                                        console.error('Failed to update eth_address: ' + xhr.statusText);
+                                    }
+                                }
+                            };
+                            xhr.send('eth_address=' + eth_address);
+                        })
+                        .catch(error => {
+                            console.error('Failed to connect to MetaMask:', error);
+                        });
+                });
+            </script>
+
+
+        </main>
     </div>
 
-    <!-- ---------------------MAIN THINGS----------------------- -->
 
-    // HTML code
-    <h1>Transaction Settings</h1>
-    <p id="address">Your MetaMask address will be displayed here.</p>
-    <button id="enableBtn">Enable Mobile Number Transaction</button>
 
-    <script>
-        // Declare global variable to store user's Ethereum address
-        var eth_address = '';
 
-        document.getElementById('enableBtn').addEventListener('click', function() {
-            // Check if MetaMask is installed
-            if (typeof window.ethereum === 'undefined') {
-                alert('Please install MetaMask to enable mobile number transaction.');
-                return;
-            }
 
-            // Request MetaMask to connect
-            ethereum.request({
-                    method: 'eth_requestAccounts'
-                })
-                .then(accounts => {
-                    // Store user's address in a variable
-                    eth_address = accounts[0];
-                    // Update the paragraph with the user's address
-                    document.getElementById('address').textContent = 'Your MetaMask address: ' + eth_address;
 
-                    // Send an AJAX request to update_eth_address.php to update the eth_address in the database
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'update_eth_address.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                console.log('eth_address updated successfully!');
-                            } else {
-                                console.error('Failed to update eth_address: ' + xhr.statusText);
-                            }
-                        }
-                    };
-                    xhr.send('eth_address=' + eth_address);
-                })
-                .catch(error => {
-                    console.error('Failed to connect to MetaMask:', error);
-                });
-        });
-    </script>
+
+
+
+
+
 
 
 </body>
