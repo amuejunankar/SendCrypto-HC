@@ -51,9 +51,9 @@ th {
 .pagination {
     margin-top: 20px;
     text-align: center;
-  }
+}
 
-  .pagination a {
+.pagination a {
     display: inline-block;
     padding: 8px 16px;
     text-decoration: none;
@@ -61,20 +61,26 @@ th {
     border: 1px solid #ddd;
     margin: 0 4px;
     transition: background-color 0.3s;
-  }
+}
 
-  .pagination a.active {
+.pagination a.active {
     background-color: #4f6bff;
     color: #fff;
     border: 1px solid #4f6bff;
-  }
+}
 
-  .pagination a:hover {
+.pagination a:hover {
     background-color: #ddd;
-  }
+}
 
 
 
 
 
-  
+/* button */
+
+
+
+
+
+

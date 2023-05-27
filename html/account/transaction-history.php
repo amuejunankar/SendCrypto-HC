@@ -34,7 +34,28 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="./styles/sidebar.css">
 
 </head>
+<style>
+    .download-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        margin-left: 1%;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
 
+    .download-button i {
+        margin-right: 5px;
+    }
+
+    .download-button:hover {
+        background-color: #45a049;
+    }
+</style>
 
 <body class="body">
 
@@ -238,15 +259,12 @@ if (isset($_POST['logout'])) {
                 </table>
 
                 <form method="post" action="getTransactions.php">
-                    <button type="submit">Download Transaction Details</button>
+                    <button class="download-button" type="submit">
+                        <i class="fa fa-download"></i> Download Transaction Details
+                    </button>
                 </form>
 
             </div>
-
-
-
-
-
         </main>
     </div>
 
