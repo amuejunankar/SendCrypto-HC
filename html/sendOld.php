@@ -1,142 +1,161 @@
+<?php
+session_start();
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ethereum Blockchain</title>
     <link rel="stylesheet" href="../styles/navbar.css">
+
     <style>
+        .body {
+            background-image: url("../src/blur2.jpg");
+            background-size: auto background-position: center;
+
+        }
+
+        h1 {
+            font-size: 100px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Default styles */
         .container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-        }
-
-        .title {
             text-align: center;
-            font-size: 48px;
-            margin-bottom: 30px;
-            animation: titleFadeIn 1s ease-in;
+            margin-top: 14%;
         }
 
         .card-container {
             display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
             justify-content: center;
-            align-items: center;
         }
 
         .card {
-            width: 300px;
+            flex-basis: calc(33.33% - 40px);
+            margin: 10px;
             padding: 20px;
-            background-color: #ffffff;
-            margin: 0 10px;
             text-align: center;
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            animation: cardFadeIn 1s ease-in;
-            transition: transform 0.2s ease-in-out;
+            border-radius: 20px;
+            transition: 700ms;
+            background: linear-gradient(45deg, #667eea, #764ba2, #ed64a6);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #fff;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
 
-        .card-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #333333;
-        }
 
-        .card-description {
-            font-size: 16px;
-            color: #777777;
-        }
 
-        @keyframes titleFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .card {
+                flex-basis: calc(50% - 40px);
+
             }
 
-            100% {
-                opacity: 1;
-                transform: translateY(0);
+            h1 {
+                margin-top: 35%;
+                font-size: 70px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             }
         }
 
-        @keyframes cardFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
+        @media screen and (max-width: 480px) {
+            .card {
+                flex-basis: calc(100% - 40px);
             }
 
-            100% {
-                opacity: 1;
-                transform: translateY(0);
+            h1 {
+                margin-top: 35%;
+                font-size: 50px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             }
         }
     </style>
 </head>
 
-<body>
+<body class="body">
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../index.php">Send Crypto</a>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../index.php">Home</a>
-                </li>
-                <li>
-                    <a href="./send.php">Send</a>
-                </li>
-                <li>
-                    <a href="">Receive</a>
-                </li>
-                <li>
-                    <?php
-                    // Start the session
-          
-                    // Check if user is logged in
-                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                      // If user is logged in, display My Account link
-                      echo '<a href="./account/account.php">My Account</a>';
-                    } else {
-                      // If user is not logged in, display Login link
-                      echo '<a href="./login.php">Login</a>';
-                    }
-                    ?>
-                  </li>
-            </ul>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.php">Home</a>
+                <?php
+                echo '<a href="./sendOld.php">Send</a>';
+                ?>
+                <a href="<?php
+                            echo './receiveOld.php';
+                            ?>">Receive</a>
+                <?php
+                echo '<a href="./login.php">Login</a>';
+                ?>
+            </div>
+
+
         </div>
     </div>
 
 
     <div class="container">
-        <h1 class="title">Ethereum Blockchain</h1>
+        <h1 class="title">Features of SendCrypto</h1>
         <div class="card-container">
             <div class="card">
-                <h2 class="card-title">Decentralized Transactions</h2>
-                <p class="card-description">Ethereum blockchain enables secure and transparent transactions without the
-                    need for intermediaries.</p>
+                <h2 class="card-title">Secure Transactions</h2>
+                <p class="card-description">The Send Crypto website ensures secure and encrypted transactions, providing a safe platform for sending cryptocurrencies.</p>
             </div>
             <div class="card">
-                <h2 class="card-title">Smart Contracts</h2>
-                <p class="card-description">Ethereum's smart contracts allow for self-executing agreements, automating
-                    processes and reducing costs.</p>
+                <h2 class="card-title">Instant Transfers</h2>
+                <p class="card-description">Send Crypto allows for instant transfers of cryptocurrencies, ensuring quick and efficient transactions.</p>
             </div>
             <div class="card">
-                <h2 class="card-title">Tokenization</h2>
-                <p class="card-description">Ethereum supports token creation, allowing for the representation of digital
-                    assets, currencies, and more.</p>
+                <h2 class="card-title">User-Friendly Interface</h2>
+                <p class="card-description">With its intuitive user interface, Send Crypto offers a seamless and easy-to-use platform for sending cryptocurrencies.</p>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Multi-Currency Support</h2>
+                <p class="card-description">Send Crypto supports a wide range of cryptocurrencies, allowing users to send various digital assets.</p>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Transaction History</h2>
+                <p class="card-description">Users can access their transaction history on the Send Crypto website, providing transparency and a record of past transactions.</p>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Mobile Compatibility</h2>
+                <p class="card-description">Send Crypto is fully compatible with mobile devices, enabling users to send cryptocurrencies on the go.</p>
             </div>
         </div>
     </div>
+
+
+
+
 </body>
 
 </html>

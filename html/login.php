@@ -2,8 +2,6 @@
 session_start();
 
 
-
-
 ?>
 
 
@@ -26,10 +24,6 @@ session_start();
 <body class="body">
 
   <div class="header">
-
-
-
-
 
     <div class="nav">
       <input type="checkbox" id="nav-check">
@@ -62,10 +56,10 @@ session_start();
                   // Check if user is logged in
                   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                     // If user is logged in, set the appropriate URL
-                    echo './html/receive.php';
+                    echo './receive.php';
                   } else {
                     // If user is not logged in, set the appropriate URL
-                    echo './html/receiveOld.php';
+                    echo './receiveOld.php';
                   }
                   ?>">Receive</a>
         <?php
@@ -79,8 +73,6 @@ session_start();
         }
         ?>
       </div>
-
-
     </div>
 
 

@@ -4,6 +4,7 @@
   background-image: url("../src/blur2.jpg");
   background-repeat: no-repeat, repeat;
   background-size: cover;
+  font-family: 'segoe ui';
 }
 
 .forgot-password-container {
@@ -26,8 +27,7 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  font-family: sans-serif;
-}
+  font-family: 'segoe ui';}
 
 .button:hover {
   background-color: #6f972e;
@@ -41,16 +41,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: sans-serif;
-}
+  font-family: 'segoe ui';}
 
 .login-form {
   background-color: hsla(240, 21%, 95%, 0.727);
   padding: 45px;
   border-radius: 10px;
   text-align: center;
-  font-family: sans-serif;
-}
+  font-family: 'segoe ui';}
 
 .arrow {
   position: relative;
@@ -79,8 +77,7 @@
   border: none;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: sans-serif;
-}
+  font-family: 'segoe ui';}
 
 .login-form button[type="submit"] {
 
