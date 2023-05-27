@@ -1,53 +1,69 @@
 <?php
-require_once './PHPExcel-1.8/Classes/PHPExcel.php';
 
-// Import Connection Files
+session_start();
+require_once('../../html/TCPDF-main/tcpdf.php');
 include '../../database/connection.php';
 $conn = connect();
 
-// Create a new Excel workbook and worksheet
-$objPHPExcel = new PHPExcel();
-$objPHPExcel->setActiveSheetIndex(0);
-$sheet = $objPHPExcel->getActiveSheet();
+// Retrieve email from the session
+$email = $_SESSION['email'];
 
+// Prepare the SQL query using a prepared statement
+$sql = "SELECT from_address, to_address, amountRupee, amount, tx_hash FROM transactions WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Retrieve the email from the session or use a default value
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'user@example.com';
+// Create a new PDF instance with landscape orientation
+$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-// Fetch transaction details from MySQL
-$sql = "SELECT * FROM transactions WHERE email = '$email'";
-$result = $conn->query($sql);
+// Set the document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Your Name');
+$pdf->SetTitle('Transaction Details');
+$pdf->SetSubject('Transaction Details');
+$pdf->SetKeywords('Transaction, Details, PDF');
 
-// Set column headers
-$sheet->setCellValue('A1', 'Transaction ID');
-$sheet->setCellValue('B1', 'Amount');
-$sheet->setCellValue('C1', 'Date');
+// Add a new page
+$pdf->AddPage();
 
-// Populate transaction details in Excel
-$row = 2;  // Start from the second row
+// Set the font and font size
+$pdf->SetFont('helvetica', '', 8);
+
+// Define column widths and heights
+$columnWidths = array(70, 70, 15, 20, 110);
+$rowHeight = 10;
+
+// Add headers
+$pdf->Cell($columnWidths[0], $rowHeight, 'From Address', 1);
+$pdf->Cell($columnWidths[1], $rowHeight, 'To Address', 1);
+$pdf->Cell($columnWidths[2], $rowHeight, 'Amt INR', 1);
+$pdf->Cell($columnWidths[3], $rowHeight, 'Amt ETH', 1);
+$pdf->Cell($columnWidths[4], $rowHeight, 'Transaction Hash', 1);
+$pdf->Ln();
+
+// Add transaction details
 while ($row_data = $result->fetch_assoc()) {
-  $sheet->setCellValue('A' . $row, $row_data['transaction_id']);
-  $sheet->setCellValue('B' . $row, $row_data['amount']);
-  $sheet->setCellValue('C' . $row, $row_data['date']);
-  $row++;
+  // Calculate the height needed for the current row based on the content
+  $contentHeight = max(
+    $pdf->getStringHeight($columnWidths[0], $row_data['from_address']),
+    $pdf->getStringHeight($columnWidths[1], $row_data['to_address']),
+    $pdf->getStringHeight($columnWidths[2], $row_data['amountRupee']),
+    $pdf->getStringHeight($columnWidths[3], $row_data['amount']),
+    $pdf->getStringHeight($columnWidths[4], $row_data['tx_hash'])
+  );
+
+  $pdf->Cell($columnWidths[0], $contentHeight, $row_data['from_address'], 1);
+  $pdf->Cell($columnWidths[1], $contentHeight, $row_data['to_address'], 1);
+  $pdf->Cell($columnWidths[2], $contentHeight, $row_data['amountRupee'], 1);
+  $pdf->Cell($columnWidths[3], $contentHeight, $row_data['amount'], 1);
+  $pdf->Cell($columnWidths[4], $contentHeight, $row_data['tx_hash'], 1);
+  $pdf->Ln();
 }
 
-// Save the Excel file
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('transaction_details.xlsx');
+// Output the PDF as a download
+$pdf->Output('transaction_details.pdf', 'D');
+exit;
 
-// Provide the file as a download
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="transaction_details.xlsx"');
-header('Content-Length: ' . filesize('transaction_details.xlsx'));
-readfile('transaction_details.xlsx');
-
-// Clean up - delete the temporary file
-unlink('transaction_details.xlsx');
-
-
-
-
-
-
-
+?>
