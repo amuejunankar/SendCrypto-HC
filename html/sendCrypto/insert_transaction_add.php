@@ -78,7 +78,7 @@ if (preg_match('/^\d{10}$/', $to_address)) {
     $stmt2->bind_param("ssddsss", $from_address, $to_address, $amountRupee, $amount, $tx_hash, $emailR, $transaction_type);
     $stmt2->execute();
 
-    sleep(10);
+    
     // Send Mail To User About Transaction
     sendMailTransactionR($emailR, $from_address, $to_address, $amount, $tx_hash, $amountRupee);
 
