@@ -47,18 +47,17 @@ session_start();
       </div>
 
       <div class="nav-links">
-        <a href="../index.php" target="">Home</a>
-        <a href="<?php
-
-                  // Check if user is logged in
-                  if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-                    // If user is logged in, display My Account link
-                    echo '<a href="./send.php">Send</a>';
-                  } else {
-                    // If user is not logged in, display Login link
-                    echo '<a href="./sendOld.php">Send</a>';
-                  }
-                  ?>
+        <a href="../index.php">Home</a>
+        <?php
+        // Check if user is logged in
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+          // If user is logged in, display Send link
+          echo '<a href="./send.php">Send</a>';
+        } else {
+          // If user is not logged in, display Send link
+          echo '<a href="./sendOld.php">Send</a>';
+        }
+        ?>
         <a href="<?php
                   // Check if user is logged in
                   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
@@ -68,9 +67,8 @@ session_start();
                     // If user is not logged in, set the appropriate URL
                     echo './html/receiveOld.php';
                   }
-                  ?>" target="">Receive</a>
+                  ?>">Receive</a>
         <?php
-
         // Check if user is logged in
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
           // If user is logged in, display My Account link
@@ -81,6 +79,7 @@ session_start();
         }
         ?>
       </div>
+
 
     </div>
 
