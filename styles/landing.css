@@ -8,13 +8,12 @@
 }
 
 
-
 .landing-page-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 92vh;
+  height: 100vh;
   font-family: sans-serif;
 }
 
