@@ -13,6 +13,7 @@ body {
 
 body {
     margin: 0px;
+    position: relative;
     font-family: 'segoe ui';
     z-index: 1;
 
@@ -74,7 +75,7 @@ a {
     width: 15em;
     height: 100%;
     margin-top: 70px;
-
+    z-index: 1;
     background: #243e56;
     color: rgba(255, 255, 255, 0.7);
 }
