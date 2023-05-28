@@ -16,7 +16,7 @@ if (mysqli_num_rows($result) > 0) {
     session_start();
     $_SESSION['logged_in'] = true;
     $_SESSION['email'] = $email;
-    header("Location: ../html/account/account.php");
+    header("Location: ../html/send.php");
 } else {
     // Email and password do not match, show error message
     echo "Account not found";

@@ -17,14 +17,14 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
     mysqli_stmt_bind_result($stmt, $otp);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-    
+
     $query = "SELECT token FROM accounttable WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $token_db = $stmt->get_result()->fetch_assoc()['token'];
 
-    if ($password === $confirm_password && $token == $token_db ) {
+    if ($password === $confirm_password && $token == $token_db) {
         $sql2 = "UPDATE accounttable SET token = '0' WHERE email = '$email'";
         mysqli_query($conn, $sql2);
 
@@ -41,8 +41,7 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
             </script>";
         exit;
     } else {
-        
-    } 
+    }
 }
 
 
@@ -68,24 +67,27 @@ if (isset($_GET['email']) && isset($_POST['password']) && isset($_POST['confirm_
 <body>
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../index.php">Send Crypto</a>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../index.php">Home</a>
-                </li>
-                <li>
-                    <a href="">Send</a>
-                </li>
-                <li>
-                    <a href="">Receive</a>
-                </li>
-                <li>
-                    <a href="../html/login.php">My Account</a>
-                </li>
-            </ul>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.php">Home</a>
+                <a href="../html/sendOld.php">Send</a>
+                <a href="../html/ReceiveOld.php">Receive</a>
+                <a href="../html/login.php">Login</a>
+            </div>
         </div>
     </div>
 
