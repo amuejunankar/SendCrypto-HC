@@ -14,7 +14,7 @@ $amount = mysqli_real_escape_string($conn, $_POST["amount"]);
 $tx_hash = mysqli_real_escape_string($conn, $_POST["tx_hash"]);
 $amountRupee = mysqli_real_escape_string($conn, $_POST['amountRupee']);
 
-$amountRupee = number_format(floatval($amountRupee), 2);
+$amountRupee = number_format($amountRupee, 2, '.', '');
 
 
 // Get user's email from session and sanitize it

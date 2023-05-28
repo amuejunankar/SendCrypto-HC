@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+
+.table-container {
+    margin-left: auto;
+    margin-right: auto;
+    /* Adjust this value to match the width of your sidebar */
+}
+
+
+
+
+
+
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination a.active {
+    background-color: #4f6bff;
+    color: #fff;
+    border: 1px solid #4f6bff;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+
+
+
+
+/* button */
+
+
+
+
+
+

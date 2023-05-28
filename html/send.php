@@ -121,7 +121,7 @@ if (isset($_POST['logout'])) {
             echo '<a href="./account/account.php">My Account</a>';
           } else {
             // If user is not logged in, display Login link
-            echo '<a href="../html/login.html">Login</a>';
+            echo '<a href="../html/login.php">Login</a>';
           }
           ?>
         </div>
