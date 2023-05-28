@@ -191,7 +191,7 @@ if (isset($_POST['logout'])) {
                     $startIndex = ($currentPage - 1) * $resultsPerPage;
 
                     // Prepare SQL statement and handle any errors
-                    $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ? LIMIT ?, ?");
+                    $stmt = $conn->prepare("SELECT * FROM transactions WHERE email = ? ORDER BY id DESC LIMIT ?, ?");
                     $stmt->bind_param("sii", $email, $startIndex, $resultsPerPage);
 
                     if (!$stmt) {
