@@ -24,6 +24,7 @@ session_start();
             height: 100vh;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            border-radius: 14px;
         }
 
         #reader {
@@ -31,6 +32,7 @@ session_start();
             height: 250px;
             background-color: #fff;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
         }
 
         #result {
