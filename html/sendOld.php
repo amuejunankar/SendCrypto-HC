@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +15,7 @@ session_start();
     <style>
         .body {
             background-image: url("../src/blur2.jpg");
-            background-size: auto background-position: center;
+            background-size: auto; background-position: center;
 
         }
 

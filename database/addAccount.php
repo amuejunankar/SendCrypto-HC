@@ -63,9 +63,11 @@ $mobileCode = mysqli_real_escape_string($conn, $_POST['mobileCode']); // Retriev
 // Check if email already exists in database
 $email_query = "SELECT * FROM accounttable WHERE email = '$email'";
 $email_result = mysqli_query($conn, $email_query);
+$row = mysqli_fetch_assoc($email_result);
+$is_verified = $row['is_verified'];
 
-if (mysqli_num_rows($email_result) > 0) {
-    // Email already exists in database, show error message
+if (mysqli_num_rows($email_result) > 0 && $is_verified == 1) {
+    // Email already exists in the database and account is verified, show error message
     echo "Email already exists";
 } else {
     // Generate OTP
@@ -73,14 +75,22 @@ if (mysqli_num_rows($email_result) > 0) {
     $otpsms = generate_random_int();
 
     // Store it into the Database
-    $sql = "INSERT INTO accounttable (name, email, password, mobileNumber, mobileCode, otp, otpsms) VALUES ('$name', '$email', '$password', '$mobileNumber', '$mobileCode','$otp','$otpsms')";
-    // Execute SQL query
+    $sql = "UPDATE accounttable SET name = '$name', password = '$password', mobileNumber = '$mobileNumber', mobileCode = '$mobileCode', otp = '$otp', otpsms = '$otpsms' WHERE email = '$email'";
+    if ($conn->query($sql) === true) {
+        if ($conn->affected_rows > 0) {
+            // Data updated successfully
+        } else {
+            // If no rows were affected, it means the email does not exist, so insert a new row
+            $insertSql = "INSERT INTO accounttable (name, email, password, mobileNumber, mobileCode, otp, otpsms) VALUES ('$name', '$email', '$password', '$mobileNumber', '$mobileCode', '$otp', '$otpsms')";
+            if ($conn->query($insertSql) === true) {
+            }// Data inserted successfully
+        }
+    }
 
     sendSMS($_POST['mobileNumber'], $otpsms);
 
-    if (mysqli_query($conn, $sql) && sendMail($_POST['email'], $otp) ) {
+    if (mysqli_query($conn, $sql) && sendMail($_POST['email'], $otp)) {
         header("Location: ../database/verify.php?email=$email");
-        
     } else {
         // Error occurred
     }
@@ -88,5 +98,3 @@ if (mysqli_num_rows($email_result) > 0) {
 
 // Close connection
 mysqli_close($conn);
-
-?>

@@ -15,40 +15,45 @@
 
 <body class="body">
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../index.php">Send Crypto</a>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../index.php">Home</a>
-                </li>
-                <li>
-                    <a href="./send.php">Send</a>
-                </li>
-                <li>
-                    <a href="">Receive</a>
-                </li>
-                <li>
-                    <a href="login.php">My Account</a>
-                </li>
-            </ul>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.php">Home</a>
+                <a href="./sendOld.php">Send</a>
+                <a href="./receiveOld.php">Receive</a>
+                <a href="./login.php">Login</a>
+            </div>
         </div>
     </div>
 
     <div id="message"></div>
-    
+
     <div class="registration-page">
         <form method="POST" action="../database/addAccount.php">
             <h2>Create an account</h2>
             <div class="form-fields-container">
                 <div class="form-field" style="display: inline-block;">
-                    <label for="name">Name</label>
-                    <input placeholder="Enter your name" type="text" id="name" name="name" value="" maxlength="20" required />
+                    <label for="name">Full Name</label>
+                    <input placeholder="Firstname + Lastname" type="text" id="name" name="name" value="" maxlength="20"
+                        required />
                 </div>
                 <div class="form-field" style="display: inline-block;">
                     <label for="email">Email</label>
-                    <input placeholder="Enter your email" type="email" id="email" name="email" value="" maxlength="100" required />
+                    <input placeholder="Enter your email" type="email" id="email" name="email" value="" maxlength="100"
+                        required />
                 </div>
             </div>
 
@@ -81,10 +86,25 @@
                     Login
                 </button>
             </a>
+            
         </form>
     </div>
 
-    
+    <script>
+        const nameInput = document.getElementById('name');
+
+        nameInput.addEventListener('input', function () {
+            const name = nameInput.value.trim();
+            nameInput.setCustomValidity('');
+
+            if (name === '') {
+                nameInput.setCustomValidity('Name cannot be empty.');
+            } else if (name.includes('  ')) {
+                nameInput.setCustomValidity('Name cannot contain multiple consecutive spaces.');
+            }
+        });
+    </script>
+
 </body>
 
 </html>

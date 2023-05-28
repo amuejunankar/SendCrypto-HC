@@ -216,7 +216,7 @@ mysqli_close($conn);
                     </div>
                     <div class="profile-container">
                         <div class="profile-picture-container form-group">
-                            <img src="<?= $image_src ?>" alt="Profile Picture" id="profile-picture">
+                            <img src="<?= $image_src ?>" alt="" id="profile-picture">
                             <input type="file" id="profile-picture-input" accept="image/*" name="imageFile">
                         </div>
                         <div class="form-group">

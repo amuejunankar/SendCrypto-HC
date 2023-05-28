@@ -30,7 +30,6 @@ if (isset($_GET['email'])) {
         $row2 = mysqli_fetch_assoc($result_sms);
         $otp_db_sms = isset($row2['otpsms']) ? $row2['otpsms'] : null;
 
-
         // Take input email and mobile OTp from user > u
         $uotp = isset($_POST['otp']) ? mysqli_real_escape_string($conn, $_POST['otp']) : '';
         $uotpsms = isset($_POST['otpsms']) ? mysqli_real_escape_string($conn, $_POST['otpsms']) : '';
@@ -46,6 +45,34 @@ if (isset($_GET['email'])) {
                 $sql = "UPDATE accounttable SET otp = 0, otpsms = 0 WHERE email = '$email'";
                 mysqli_query($conn, $sql);
 
+
+
+                // get name and pass to func for Divide name to FirstName and LastName 
+                // and Update it In DB
+
+                $result = mysqli_query($conn, "SELECT name FROM accounttable WHERE email = '$email'");
+                $row = mysqli_fetch_assoc($result);
+                $name = $row ? $row['name'] : null;
+
+                //now pass name variable for divide the name into Fname And Lname
+                $name = trim($name);
+                $name_parts = explode(" ", $name);
+
+                if (count($name_parts) >= 2) {
+                    $first_name = $name_parts[0];
+                    $last_name = $name_parts[1];
+                }
+
+                // Assuming $first_name and $last_name are obtained from previous steps
+                $first_name = $conn->real_escape_string($first_name);
+                $last_name = $conn->real_escape_string($last_name);
+
+                // SQL query to insert data into the database
+                $sql = "UPDATE accounttable SET fname = '$first_name', lname = '$last_name' WHERE email = '$email'";
+
+                if ($conn->query($sql) === true) {
+                }
+
                 echo "<script>alert('Account verified successfully'); 
                 window.location='../html/login.php';
                 </script>";
@@ -55,7 +82,7 @@ if (isset($_GET['email'])) {
             }
         } else {
             // OTP did not match, show error message
-            
+
         }
     } else {
         // No OTP found for the given email, show error message
@@ -74,12 +101,12 @@ if (isset($_GET['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify Account</title>
     <link rel="stylesheet" href="../styles/navbar.css">
-    </head>
-    
+</head>
+
 
 <body>
 
-<style>
+    <style>
         .body {
             margin: 0;
             padding: 0;
@@ -169,29 +196,37 @@ if (isset($_GET['email'])) {
         .login-form button[type="submit"]:hover {
             background-color: #5555d9;
         }
-</style>
+    </style>
 
 
     <div class="header">
-        <div class="navbar">
-            <div class="logo">
-                <a href="../index.php">Send Crypto</a>
+
+
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    SendCrypto
+                </div>
             </div>
-            <ul class="navLinks">
-                <li>
-                    <a href="../index.php">Home</a>
-                </li>
-                <li>
-                    <a href="../html/send.php">Send</a>
-                </li>
-                <li>
-                    <a href="">Receive</a>
-                </li>
-                <li>
-                    <a href="../html/login.php">My Account</a>
-                </li>
-            </ul>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a href="../index.php">Home</a>
+                <a href="../html/sendOld.php">Send</a>
+                <a href="../html/receiveOld.php">Receive</a>
+                <a href="../html/login.php">Login</a>
+            </div>
         </div>
+
+
     </div>
 
     <div class="login-container">
@@ -206,7 +241,7 @@ if (isset($_GET['email'])) {
                 </div>
                 <form method="POST" action="">
                     <label for="otp">Email OTP:</label>
-                    
+
                     <input placeholder="Enter your Email OTP" type="text" pattern="[0-9]{6}" id="otp" name="otp" minlength="5" maxlength="6" required>
                     <br><br>
                     <label for="otpsms">Mobile OTP:</label>
