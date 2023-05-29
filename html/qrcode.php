@@ -16,7 +16,9 @@ session_start();
 
 <body>
     <style>
-        main {
+	
+		@media (max-width: 3000px) {
+		main {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,8 +30,8 @@ session_start();
         }
 
         #reader {
-            width: 250px;
-            height: 250px;
+            width: 550px;
+            height: 350px;
             background-color: #fff;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
             border-radius: 12px;
@@ -40,6 +42,38 @@ session_start();
             font-size: 16px;
             color: #333;
         }
+		}
+		
+	
+		@media (max-width: 600px) {
+		main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            border-radius: 14px;
+        }
+
+        #reader {
+            width: 550px;
+            height: 350px;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+		}
+
+		
+       
     </style>
 
     <div class="main-container">
